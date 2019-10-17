@@ -1,0 +1,95 @@
+{
+    "members": [
+        {
+            "name": "Billy Bob",
+            "id": 123412341,
+            "valid-membership": true,
+            "address": {
+                "street": "1234 Sunshine Road",
+                "city": "Portland",
+                "state": "OR",
+                "zip": 97214
+            },
+            "services": [
+                12345,
+                12346
+            ]
+        },
+        {
+            "name": "Mary Sue",
+            "id": 123456789,
+            "address": {
+                "street": "9827 Broadway Drive",
+                "city": "Beaverton",
+                "state": "OR",
+                "zip": 97007
+            },
+            "services": [
+                12347,
+                12348
+            ]
+        }
+    ],
+    "providers": {
+        "987654321": {
+            "name": "David Doctorson",
+            "address": {
+                "street": "1 Business Plaza",
+                "city": "Portland",
+                "state": "OR",
+                "zip": 97214
+            },
+            "services": [
+                12345,
+                12347
+            ]
+        },
+        "987654322": {
+            "name": "Susan McTherapist",
+            "address": {
+                "street": "2 Business Plaza",
+                "city": "Portland",
+                "state": "OR",
+                "zip": 97214
+            },
+            "services": [
+                12346,
+                12348
+            ]
+        }
+    },
+    "services": {
+        "12345": {
+            "service date": "10-12-19",
+            "received date": "10-12-19 10:22:12",
+            "member id": 123412341,
+            "provider id": 987654321,
+            "service code": 222222,
+            "fee": 12097
+        },
+        "12346": {
+            "service date": "10-11-19",
+            "received date": "10-12-19 11:22:19",
+            "member id": 123412341,
+            "provider id": 987654322,
+            "service code": 333333,
+            "fee": 9687
+        },
+        "12347": {
+            "service date": "10-12-19",
+            "received date": "10-12-19 10:22:12",
+            "member id": 123456789,
+            "provider id": 987654321,
+            "service code": 222222,
+            "fee": 120.97
+        },
+        "12348": {
+            "service date": "10-12-19",
+            "received date": "10-12-19 10:22:12",
+            "member id": 123456789,
+            "provider id": 987654322,
+            "service code": 333333,
+            "fee": 120.97
+        }
+    }
+}
