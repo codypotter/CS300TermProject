@@ -1,22 +1,21 @@
 #include <iostream>
-#include <fstream>
-#include <json/json.h> // or jsoncpp/json.h , or json/json.h etc.
+#include <json/json.h>
+#include "utils.h"
 
-using namespace std;
+int main(int argc, char** argv) {
+    if(argc != 2) {
+        printf("Usage: %s <parameters>\n", argv[0]);
 
-int main() {
-    ifstream ifs("data/alice.json");
-    Json::Reader reader;
-    Json::Value obj;
-    reader.parse(ifs, obj); // reader can also read strings
-    cout << "Book: " << obj["book"].asString() << endl;
-    cout << "Year: " << obj["year"].asUInt() << endl;
-    const Json::Value& characters = obj["characters"]; // array of characters
-    for (int i = 0; i < characters.size(); i++){
-        cout << "    name: " << characters[i]["name"].asString();
-        cout << " chapter: " << characters[i]["chapter"].asUInt();
-        cout << endl;
+    } else {
+
+        Record sample = read_json("data/sample-db.json");
+
+        Record& members = sample["members"];
+        for(int i = 0; i < members.size(); ++i) {
+            printf("Name: %s\n", members[i]["name"].asString().c_str());
+        }
+
+        return 0;
     }
-
-    return 0;
+    return -1;
 }
