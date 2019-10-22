@@ -22,6 +22,7 @@
 #define f64 double
 
 #include <fstream>
+#include <stdio.h>
 
 internal inline
 Record read_json(const char* path) {
@@ -30,6 +31,13 @@ Record read_json(const char* path) {
     Json::Value obj;
     reader.parse(ifs, obj);
     return obj;
+}
+
+internal inline
+void write_json(const char* path, const Record& record) {
+    std::ofstream ofs(path);
+    Json::StyledStreamWriter writer;
+    writer.write(ofs, record);
 }
 
 internal inline
