@@ -1,16 +1,24 @@
-#include <iostream>
+/**
+ * Created by Bela, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson, Max VanRaden
+ */
 
-#include <json/json.h>  //JsonCPP include
+#include <iostream>
 #include <catch.hpp>    //Unit Testing library include
 
 #include "Database.h"
-#include "utils.h"
 
 int main(int argc, char** argv) {
 
     Database database("data/sample-db.json");
 
-    database.addMember(Member("one", "Belaman"));
+    database.printMembers();
+    database.printProviders();
+    database.printServices();
+
+    database.addMember("Cody", "Osprey Street", "Beaverton", "OR", "97007");
+    database.update();
+
+    database.printMembers();
 
     return 0;
 }

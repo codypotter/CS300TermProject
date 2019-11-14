@@ -9,8 +9,13 @@
 #include <string>
 #include "include/json/json.h"
 
+/**
+ * Represents a member record from the ChocAn Database
+ * READ-ONLY
+ */
 class Member {
-private:
+public:
+    //////////////////// Variables ////////////////////
     std::string name;
     std::string id;
     bool isValid;
@@ -18,34 +23,18 @@ private:
     std::string city;
     std::string state;
     std::string zip;
-
     std::vector<std::string> services;
 
-public:
-    // Constructor
+    //////////////////// Constructors ////////////////////
     Member(Json::Value& memberRef, std::string key);
-    Member(std::string newID, std::string newName);
+    Member(std::string newID, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
 
-    // Getters
-    std::string getName();
-    std::string getID();
-    bool getIsValid();
-    std::string getStreet();
-    std::string getCity();
-    std::string getState();
-    std::string getZip();
-    std::vector<std::string> getServices();
+    //////////////////// Getters ////////////////////
     Json::Value getJsonValue();
 
-    // Setters
-    void setName(std::string newName);
-    void setID(std::string newID);
-    void setIsValid(bool newIsValid);
-    void setStreet(std::string newStreet);
-    void setCity(std::string newCity);
-    void setState(std::string newState);
-    void setZip(std::string newZip);
-    void setServices(std::vector<std::string> newServices);
+    //////////////////// Setters ////////////////////
+    void addService(std::string serviceID);
+    void removeService(std::string serviceID);
 };
 
 

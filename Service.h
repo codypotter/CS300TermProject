@@ -10,7 +10,7 @@
 #include "include/json/json.h"
 
 class Service {
-private:
+public:
     std::string id;
     std::string serviceDate;
     std::string submissionDate;
@@ -19,27 +19,13 @@ private:
     std::string serviceCode;
     int fee;
 
-public:
     // Constructor
     Service(Json::Value& serviceRef, std::string key);
+    Service(std::string id, std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);
 
     // Getters
-    std::string getID();
-    std::string getServiceDate();
-    std::string getSubmissionDate();
-    std::string getMemberID();
-    std::string getProviderID();
-    std::string getServiceCode();
-    std::string getFee();
+    Json::Value getJsonValue();
 
-    // Setters
-    void setID(std::string newID);
-    void setServiceDate(std::string newDate);
-    void setSubmissionDate(std::string newDate);
-    void setMemberID(std::string newID);
-    void setProviderID(std::string newID);
-    void setServiceCode(std::string newCode);
-    void setFee(int newFee);
 };
 
 

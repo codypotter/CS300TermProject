@@ -10,37 +10,26 @@
 #include "include/json/json.h"
 
 class Provider {
-private:
+public:
+    /////////////////// Members ////////////////////
     std::string name;
     std::string id;
     std::string street;
     std::string city;
     std::string state;
     std::string zip;
-
     std::vector<std::string> services;
 
-public:
-    // Constructor
+    /////////////////// Constructors ////////////////////
     Provider(Json::Value& providerRef, std::string key);
+    Provider(std::string newID, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
 
-    // Getters
-    std::string getName();
-    std::string getID();
-    std::string getStreet();
-    std::string getCity();
-    std::string getState();
-    std::string getZip();
-    std::vector<std::string> getServices();
+    /////////////////// Getters ////////////////////
+    Json::Value getJsonValue();
 
-    // Setters
-    void setName(std::string newName);
-    void setID(std::string newID);
-    void setStreet(std::string newStreet);
-    void setCity(std::string newCity);
-    void setState(std::string newState);
-    void setZip(std::string newZip);
-    void setServices(std::vector<std::string>newServices);
+    /////////////////// Setters ////////////////////
+    void addService(std::string newServiceID);
+    void removeService(std::string serviceID);
 };
 
 
