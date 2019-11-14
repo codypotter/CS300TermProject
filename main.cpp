@@ -1,28 +1,24 @@
-#include <iostream>
+/**
+ * Created by Bela, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson, Max VanRaden
+ */
 
-#include <json/json.h>  //JsonCPP include
+#include <iostream>
 #include <catch.hpp>    //Unit Testing library include
 
-#include "utils.h"
+#include "Database.h"
 
 int main(int argc, char** argv) {
-    if(argc != 2) {
-        printf("Usage: %s <parameters>\n", argv[0]);
-        return -1;
-    }
 
-    //example of reading a json file
-    Record sample = read_json("data/sample-db.json");
+    Database database("data/sample-db.json");
 
-    Record& members = sample["members"];
-    for(int i = 0; i < members.size(); ++i) {
-        printf("Name: %s\n", members[i]["name"].asString().c_str());
-    }
+    database.printMembers();
+    database.printProviders();
+    database.printServices();
 
-    //modifying a json value
-    members[1]["name"] = "test";
-    //example of writing to a json file
-    write_json("data/test.json", sample);
+    database.addMember("Cody", "Osprey Street", "Beaverton", "OR", "97007");
+    database.update();
+
+    database.printMembers();
 
     return 0;
 }
