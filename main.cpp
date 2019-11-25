@@ -2,6 +2,8 @@
  * Created by Bela, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson, Max VanRaden
  */
 
+#define CATCH_CONFIG_RUNNER
+
 #include <iostream>
 #include <catch.hpp>    //Unit Testing library include
 
@@ -11,14 +13,7 @@ int main(int argc, char** argv) {
 
     Database database("data/sample-db.json");
 
-    database.printMembers();
-    database.printProviders();
-    database.printServices();
+    int result = Catch::Session().run( argc, argv );
 
-    database.addMember("Cody", "Osprey Street", "Beaverton", "OR", "97007");
-    database.update();
-
-    database.printMembers();
-
-    return 0;
+    return result;
 }
