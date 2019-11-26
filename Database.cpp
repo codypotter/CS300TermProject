@@ -27,6 +27,7 @@ void Database::reload() {
     members.clear();
     providers.clear();
     services.clear();
+    directory.clear();
 
     // open an input stream and read it into the database.rootRef
     std::ifstream ifs(path);
@@ -37,6 +38,7 @@ void Database::reload() {
     Json::Value membersRef = rootRef["members"];
     Json::Value providersRef = rootRef["providers"];
     Json::Value servicesRef = rootRef["services"];
+    Json::Value serviceEntryRef = rootRef["service-directory"];
 
     for( Json::Value::iterator memberIterator = membersRef.begin() ; memberIterator != membersRef.end() ; memberIterator++ ) {
         Member newMember(membersRef[memberIterator.key().asString()], memberIterator.key().asString());
@@ -52,6 +54,11 @@ void Database::reload() {
         Service newService(servicesRef[serviceIterator.key().asString()], serviceIterator.key().asString());
         services.insert(std::pair<std::string, Service>(serviceIterator.key().asString(), newService));
     }
+
+    for( Json::Value::iterator serviceEntryIterator = serviceEntryRef.begin() ; serviceEntryIterator != serviceEntryRef.end() ; serviceEntryIterator++ ) {
+        ServiceEntry newServiceEntry(serviceEntryRef[serviceEntryIterator.key().asString()], serviceEntryIterator.key().asString());
+        directory.insert(std::pair<std::string, ServiceEntry>(serviceEntryIterator.key().asString(), newServiceEntry));
+    }
 }
 
 /**
@@ -62,10 +69,12 @@ void Database::update() {
     std::map<std::string, Member>::iterator memberIterator;
     std::map<std::string, Provider>::iterator providerIterator;
     std::map<std::string, Service>::iterator serviceIterator;
+    std::map<std::string, ServiceEntry>::iterator serviceEntryIterator;
 
     rootRef["members"].clear();
     rootRef["providers"].clear();
     rootRef["services"].clear();
+    rootRef["service-directory"].clear();
 
     for ( memberIterator = members.begin(); memberIterator != members.end(); memberIterator++ ) {
         rootRef["members"][memberIterator->first] = memberIterator->second.getJsonValue();
@@ -79,6 +88,10 @@ void Database::update() {
         rootRef["services"][serviceIterator->first] = serviceIterator->second.getJsonValue();
     }
 
+    for (serviceEntryIterator = directory.begin(); serviceEntryIterator != directory.end(); serviceEntryIterator++ ) {
+        rootRef["service-directory"][serviceEntryIterator->first] = serviceEntryIterator->second.getJsonValue();
+    }
+
     // Writes the data at the database.rootRef to the file
     write();
 }
@@ -90,7 +103,7 @@ void Database::update() {
  * @return the generated identifier
  */
 std::string Database::generateNewID(int length) {
-    std::string newID = "";
+    std::string newID;
     srand(time(NULL));
     for (int i = 0; i < length; i++) {
         newID += std::to_string((int) rand() % 10);
@@ -247,5 +260,21 @@ void Database::addService(std::string serviceDate, std::string submissionDate, s
 bool Database::removeService(std::string serviceID) {
     services.erase(serviceID);
     return true;
+}
+
+Member &Database::getMember(std::string memberID) {
+    return members.at(memberID);
+}
+
+Provider &Database::getProvider(std::string providerID) {
+    return providers.at(providerID);
+}
+
+Service &Database::getService(std::string serviceID) {
+    return services.at(serviceID);
+}
+
+ServiceEntry &Database::getServiceEntry(std::string serviceEntryID) {
+    return directory.at(serviceEntryID);
 }
 

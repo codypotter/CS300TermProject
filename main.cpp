@@ -7,7 +7,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-    Database database("data/sample-db.json");
+    Database database((char*) "data/sample-db.json");
 
     cout << "Welcome to the ChocAn Simulator." << endl;
     cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
                 break;
         }
     }
-    
+
     if(res == 'p') {
         do {
             cout << "Welcome to the provider terminal" << endl;
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
             cin >> choice;
         }
         while(choice != 'a' && choice != 'b' && choice != 'x');
-        
+
         switch(choice) {
             case 'a':
                 break;
