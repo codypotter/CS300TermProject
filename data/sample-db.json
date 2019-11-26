@@ -88,6 +88,33 @@
 			"zip" : "97214"
 		}
 	},
+	"service-directory" : 
+	{
+		"395876" : 
+		{
+			"fee" : 2050,
+			"id" : "395876",
+			"name" : "BMI Assessment"
+		},
+		"598470" : 
+		{
+			"fee" : 9999,
+			"id" : "598470",
+			"name" : "foobar"
+		},
+		"738575" : 
+		{
+			"fee" : 33199,
+			"id" : "738575",
+			"name" : "Cardiovascular Health Screening"
+		},
+		"883948" : 
+		{
+			"fee" : 12099,
+			"id" : "883948",
+			"name" : "Aerobics Exercise"
+		}
+	},
 	"services" : 
 	{
 		"12345" : 
@@ -129,33 +156,6 @@
 			"serviceCode" : "33333",
 			"serviceDate" : "11/12/2019",
 			"submissionDate" : "11/12/2019 12:12:15"
-		}
-	},
-	"service-directory":
-	{
-		"598470":
-		{
-			"id": "598470",
-			"fee": 9999,
-			"name": "Dietitian Counseling"
-		},
-		"883948":
-		{
-			"id": "883948",
-			"fee": 12099,
-			"name": "Aerobics Exercise"
-		},
-		"738575":
-		{
-			"id": "738575",
-			"fee": 33199,
-			"name": "Cardiovascular Health Screening"
-		},
-		"395876":
-		{
-			"id": "973677",
-			"fee": 2050,
-			"name": "BMI Assessment"
 		}
 	}
 }

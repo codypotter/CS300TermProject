@@ -11,18 +11,19 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <math.h>
+#include <cmath>
 
 #include "Member.h"
 #include "Provider.h"
 #include "Service.h"
+#include "ServiceEntry.h"
 
-#include "include/json/json.h"
+#include <json/json.h>
 
 class Database {
 public:
     // Constructor
-    Database(char* rootPath);
+    explicit Database(char* rootPath);
 
     // JSON Database Operations
     void update();
@@ -32,6 +33,7 @@ public:
     void printMembers();
     void printProviders();
     void printServices();
+    void printDirectory();
 
     // CRUD Operations for Members
     void addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
@@ -45,9 +47,16 @@ public:
     void addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);
     bool removeService(std::string serviceID);
 
+    // Getters
+    Member& getMember(std::string memberID);
+    Provider& getProvider(std::string providerID);
+    Service& getService(std::string serviceID);
+    ServiceEntry& getServiceEntry(std::string serviceEntryID);
+
     std::map<std::string, Member> members;
     std::map<std::string, Provider> providers;
     std::map<std::string, Service> services;
+    std::map<std::string, ServiceEntry> directory;
 
 private:
     std::string path;

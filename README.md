@@ -14,4 +14,4 @@ $ mkdir build && cd build
 $ cmake ..
 $ make
 ```
-a.out will be generated in the current directory
+CS300TermProject will be generated in the current directory

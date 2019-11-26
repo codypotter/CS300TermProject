@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <string>
-#include "include/json/json.h"
+#include <json/json.h>
 
 /**
  * Represents a member record from the ChocAn Database
