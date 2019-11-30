@@ -48,7 +48,7 @@
 		{
 			"city" : "Beaverton",
 			"id" : "695342831",
-			"isValid" : true,
+			"isValid" : false,
 			"name" : "Cody",
 			"state" : "OR",
 			"street" : "Osprey Street",
