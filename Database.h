@@ -36,15 +36,15 @@ public:
     void printDirectory();
 
     // CRUD Operations for Members
-    void addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
+    std::string addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeMember(std::string memberID);
 
     // CRUD Operations for Providers
-    void addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
+    std::string addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeProvider(std::string providerID);
 
     // CRUD Operations for Services
-    void addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);
+    std::string addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);
     bool removeService(std::string serviceID);
 
     // Getters
