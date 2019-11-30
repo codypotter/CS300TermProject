@@ -27,9 +27,6 @@ public:
     /////////////////// Getters ////////////////////
     Json::Value getJsonValue();
 
-    /////////////////// Setters ////////////////////
-    void addService(std::string newServiceID);
-    void removeService(std::string serviceID);
 };
 
 

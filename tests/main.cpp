@@ -16,26 +16,6 @@ int main (int argc, char* argv[] ) {
     return result;
 }
 
-TEST_CASE( "Update database and check for correct member data in map", "[database]") {
-    // setup
-    std::string newMemberID = TEST_DB.addMember("TestName", "TestStreet", "TestCity", "TestState", "TestZip");
-
-    // method to test
-    TEST_DB.update();
-
-    // running tests
-    REQUIRE( TEST_DB.members.at(newMemberID).name == "TestName" );
-    REQUIRE( TEST_DB.members.at(newMemberID).street == "TestStreet" );
-    REQUIRE( TEST_DB.members.at(newMemberID).city == "TestCity" );
-    REQUIRE( TEST_DB.members.at(newMemberID).zip == "TestZip" );
-    REQUIRE( TEST_DB.members.at(newMemberID).id == newMemberID );
-    REQUIRE( TEST_DB.members.at(newMemberID).isValid );
-
-    TEST_DB.members.erase(newMemberID);
-    TEST_DB.update();
-
-}
-
 TEST_CASE( "Update database and check for correct provider data in map", "[database]") {
     // setup
     std::string newProviderID = TEST_DB.addProvider("TestName", "TestStreet", "TestCity", "TestState", "TestZip");
@@ -84,7 +64,7 @@ TEST_CASE( "Update database and check for correct member data in datafile", "[da
     reader.parse(ifs, rootRef);
 
 
-    // running tests
+    // running tests on JSON database
     REQUIRE( rootRef["members"][newMemberID]["name"] == "TestName" );
     REQUIRE( rootRef["members"][newMemberID]["street"] == "TestStreet" );
     REQUIRE( rootRef["members"][newMemberID]["city"] == "TestCity" );
@@ -93,6 +73,25 @@ TEST_CASE( "Update database and check for correct member data in datafile", "[da
     REQUIRE( rootRef["members"][newMemberID]["id"] == newMemberID );
     REQUIRE( rootRef["members"][newMemberID]["isValid"] == true );
 
+    // running tests on members map
+    REQUIRE( TEST_DB.members.at(newMemberID).name == "TestName" );
+    REQUIRE( TEST_DB.members.at(newMemberID).street == "TestStreet" );
+    REQUIRE( TEST_DB.members.at(newMemberID).city == "TestCity" );
+    REQUIRE( TEST_DB.members.at(newMemberID).zip == "TestZip" );
+    REQUIRE( TEST_DB.members.at(newMemberID).id == newMemberID );
+    REQUIRE( TEST_DB.members.at(newMemberID).isValid );
+
     TEST_DB.members.erase(newMemberID);
     TEST_DB.update();
+
+    // running tests on members map
+    REQUIRE( TEST_DB.members.find(newMemberID) == TEST_DB.members.end());
+}
+
+TEST_CASE("Check that new IDs are generated every time", "[database]") {
+    REQUIRE( TEST_DB.generateNewID(9) != TEST_DB.generateNewID(9) );
+    REQUIRE( TEST_DB.generateNewID(8) != TEST_DB.generateNewID(8) );
+    REQUIRE( TEST_DB.generateNewID(7) != TEST_DB.generateNewID(7) );
+    REQUIRE( TEST_DB.generateNewID(6) != TEST_DB.generateNewID(6) );
+    REQUIRE( TEST_DB.generateNewID(5) != TEST_DB.generateNewID(5) );
 }
