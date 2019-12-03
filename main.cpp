@@ -8,8 +8,6 @@
 #include "Provider.h"
 #include "Service.h"
 
-using namespace std;
-
 void printHeader(char target) {
 	switch(target)
 	{
@@ -36,6 +34,7 @@ void printHeader(char target) {
 }
 
 int main(int argc, char** argv) {
+  srand(time(NULL));
 	Database database((char*) "data/sample-db.json");
 	printHeader('c');
 	char res = 0;

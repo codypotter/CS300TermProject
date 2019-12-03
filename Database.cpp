@@ -104,7 +104,7 @@ void Database::update() {
  */
 std::string Database::generateNewID(int length) {
     std::string newID;
-    srand(time(NULL));
+
     for (int i = 0; i < length; i++) {
         newID += std::to_string((int) rand() % 10);
     }
@@ -185,18 +185,20 @@ void Database::printServices() {
 
 //////////////////// CRUD Operations for Members ////////////////////
 /**
- * Adds a member to the members map
+ * Adds a member to the members map, returns the id of the new member
  * @param newName
  * @param newStreet
  * @param newCity
  * @param newState
  * @param newZip
  */
-void Database::addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
+std::string Database::addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
     std::string newID = generateNewID(9);
     Member newMember(newID, newName, newStreet, newCity, newState, newZip);
 
     members.insert(std::pair<std::string, Member>((std::string) newID, newMember));
+
+    return newID;
 }
 
 /**
@@ -218,11 +220,13 @@ bool Database::removeMember(std::string memberID) {
  * @param newState
  * @param newZip
  */
-void Database::addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
+std::string Database::addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
     std::string newID = generateNewID(9);
     Provider newProvider(newID, newName, newStreet, newCity, newState, newZip);
 
     providers.insert(std::pair<std::string, Provider>(newID, newProvider));
+
+    return newID;
 }
 
 /**
@@ -245,11 +249,13 @@ bool Database::removeProvider(std::string providerID) {
  * @param serviceCode
  * @param fee
  */
-void Database::addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee) {
+std::string Database::addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee) {
     std::string newID = generateNewID(5);
     Service newService(newID, serviceDate, submissionDate, memberID, providerID, serviceCode, fee);
 
     services.insert(std::pair<std::string, Service>(newID, newService));
+
+    return newID;
 }
 
 /**
