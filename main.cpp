@@ -6,8 +6,6 @@
 #include "Database.h"
 using namespace std;
 
-using namespace std;
-
 void printHeader(char target) {
 	switch(target)
 	{
