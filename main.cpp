@@ -8,6 +8,8 @@
 #include "Provider.h"
 #include "Service.h"
 
+using namespace std;
+
 void printHeader(char target) {
 	switch(target)
 	{
