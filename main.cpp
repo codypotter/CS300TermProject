@@ -2,11 +2,9 @@
  * Created by Bela, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson, Max VanRaden
  */
 
-#include <string>
 #include <iostream>
 #include "Database.h"
-#include "Provider.h"
-#include "Service.h"
+using namespace std;
 
 using namespace std;
 
@@ -17,8 +15,6 @@ void printHeader(char target) {
 			cout <<  " __        __   __" << endl;
 			cout << "/  ` |__| /  \\ /  `  /\\  |\\ |" << endl;
 			cout << "\\__, |  | \\__/ \\__, /~~\\ | \\|" << endl << endl;
-			cout << "Welcome to the ChocAn Simulator." << endl;
-			cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
 			break;
 		case 'm':
 			cout << "   __  ___                              ______              _           __" << endl;
@@ -36,9 +32,11 @@ void printHeader(char target) {
 }
 
 int main(int argc, char** argv) {
-  srand(time(NULL));
-	Database database((char*) "data/sample-db.json");
 	printHeader('c');
+	Database database((char*) "data/sample-db.json");
+
+	cout << "Welcome to the ChocAn Simulator." << endl;
+	cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
 	char res = 0;
 	while(res != 'm' && res != 'p') {
 		cin >> res;
@@ -48,7 +46,6 @@ int main(int argc, char** argv) {
 
 	char choice = 0;
 	if(res == 'm') {
-		printHeader(res);
 		do {
 			cout << "Welcome to the manager terminal. Please select an option." << endl;
 			cout << "(a) Add a new provider" << endl;
@@ -85,7 +82,7 @@ int main(int argc, char** argv) {
 		}
 		printHeader(res);
 		do {
-			cout << "Welcome to the provider terminal. Please select an option." << endl;
+			cout << "Welcome to the provider terminal" << endl;
 			cout << "(a) View the provider directory" << endl;
 			cout << "(b) Provide service" << endl;
 			cout << "(x) Exit" << endl;
@@ -94,12 +91,13 @@ int main(int argc, char** argv) {
 		while(choice != 'a' && choice != 'b' && choice != 'x');
 
 		switch(choice) {
-			case 'a':
+			case 'a':				
 				cout << "List of services:" << endl;
-				//THIS PART IS BROKEN AS FUCK!!!!!
 				for(auto pair : database.directory)
 				{
-					cout << pair.first << " \n" << "name: " << pair.second.name << "\nFee: " << pair.second.fee << endl;
+					cout << "Service Code: " << pair.first << endl;
+					cout << "Name: " << pair.second.name << endl;
+					cout << "Fee: " << pair.second.fee << endl << endl;
 				}
 				break;
 			case 'b':
@@ -119,7 +117,6 @@ int main(int argc, char** argv) {
 						break;
 					}
 					string servCode = "";
-					//Can't validate service code here
 					cout << "Enter a service code: (6 digits)" << endl;
 					cin >> servCode;
 					if(database.directory.find(servCode) == database.directory.end())
@@ -135,8 +132,16 @@ int main(int argc, char** argv) {
 						cin >> currDate;
 						cout << "Enter the expected service date: (mm/dd/yyyy)" << endl;
 						cin >> servDate;
-						//create new service object here with collected data
+
+						cout << "Service Summary:" << endl;
+						cout << "Date of Service: " << servDate << endl;
+						cout << "Date of Submission: " << currDate << endl;
+						cout << "Member ID: " << memID << endl;
+						cout << "Provider ID: " << provID << endl;
+						cout << "Service ID: " << servCode << endl;
+						cout << "Fee: " << database.directory.at(servCode).fee << endl;
 						database.addService(servDate, currDate, memID, provID, servCode, database.directory.at(servCode).fee);
+						database.update();
 					}
 				}
 				break;
@@ -144,5 +149,6 @@ int main(int argc, char** argv) {
 				break;
 		}
 	}
+
 	return 0;
 }
