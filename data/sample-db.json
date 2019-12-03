@@ -44,6 +44,16 @@
 			"street" : "1234 Fake Street",
 			"zip" : "97214"
 		},
+		"018365207" : 
+		{
+			"city" : "Portland",
+			"id" : "018365207",
+			"isValid" : true,
+			"name" : "",
+			"state" : "Oregon",
+			"street" : "16360 SE Test Avenue",
+			"zip" : "97267"
+		},
 		"695342831" : 
 		{
 			"city" : "Beaverton",
@@ -53,6 +63,16 @@
 			"state" : "OR",
 			"street" : "Osprey Street",
 			"zip" : "97007"
+		},
+		"737915180" : 
+		{
+			"city" : "asd",
+			"id" : "737915180",
+			"isValid" : true,
+			"name" : "",
+			"state" : "la",
+			"street" : "la",
+			"zip" : "hi"
 		},
 		"744321196" : 
 		{

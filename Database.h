@@ -18,6 +18,7 @@
 #include "Service.h"
 #include "ServiceEntry.h"
 
+
 #include <json/json.h>
 
 class Database {
@@ -36,12 +37,16 @@ public:
     void printDirectory();
 
     // CRUD Operations for Members
+    void displayMember(std::string memberID);
     std::string addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeMember(std::string memberID);
+    void editMember(std::string memberID);
 
     // CRUD Operations for Providers
+    void displayProvider(std::string providerID);
     std::string addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeProvider(std::string providerID);
+    void editProvider(std::string providerID);
 
     // CRUD Operations for Services
     std::string addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);

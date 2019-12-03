@@ -4,6 +4,14 @@
 
 #include <iostream>
 #include "Database.h"
+
+void getMember(Database & database);
+void getProvider(Database & database);
+void deleteMember(Database & database);
+void deleteProvider(Database & database);
+void changeMember(Database & database);
+void changeProvider(Database & database);
+
 using namespace std;
 
 void printHeader(char target) {
@@ -44,29 +52,48 @@ int main(int argc, char** argv) {
 
 	char choice = 0;
 	if(res == 'm') {
-		do {
-			cout << "Welcome to the manager terminal. Please select an option." << endl;
-			cout << "(a) Add a new provider" << endl;
-			cout << "(b) Add a new member" << endl;
-			cout << "(c) Edit a provider or member" << endl;
-			cout << "(d) Delete a provider or member" << endl;
-			cout << "(x) Exit" << endl;
-			cin >> choice;
-		}
-		while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd' && choice !='x');
+		printHeader(res);
+        string inputName;
+        string inputStreet;
+        string inputCity;
+        string inputState;
+        string inputZip;
+        string inputID;
+        do {
+            cout << "Welcome to the manager terminal. Please select an option." << endl;
+            cout << "(a) Add a new provider" << endl;
+            cout << "(b) Add a new member" << endl;
+            cout << "(c) Edit a provider" << endl;
+            cout << "(d) Edit a member" << endl;
+            cout << "(e) Delete a provider" << endl;
+            cout << "(f) Delete a member" << endl;
+            cout << "(x) Exit" << endl;
+            cin >> choice;
+        }
+        while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd' && choice != 'e' && choice != 'f' && choice !='x');
 
-		switch(choice) {
-			case 'a':
-				break;
-			case 'b':
-				break;
-			case 'c':
-				break;
-			case 'd':
-				break;
-			case 'x':
-				break;
-		}
+        switch(choice) {
+            case 'a': 
+                getMember(database);
+                break;
+            case 'b':
+                getProvider(database);
+                break;
+            case 'c':
+                changeMember(database);
+                break;
+            case 'd':
+                changeProvider(database);
+                break;
+            case 'e':
+                deleteProvider(database);
+                break;
+            case 'f':
+                deleteMember(database);
+                break;
+            case 'x':
+                break;
+        }
 	}
 
 	if(res == 'p') {
