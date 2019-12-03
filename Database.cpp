@@ -104,7 +104,7 @@ void Database::update() {
  */
 std::string Database::generateNewID(int length) {
     std::string newID;
-    srand(time(NULL));
+
     for (int i = 0; i < length; i++) {
         newID += std::to_string((int) rand() % 10);
     }

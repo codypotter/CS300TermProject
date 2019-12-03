@@ -7,6 +7,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
+    srand(time(NULL)); // seeds the random number generator for unique IDs
     Database database((char*) "data/sample-db.json");
 
     cout << "Welcome to the ChocAn Simulator." << endl;
