@@ -29,6 +29,47 @@ void printHeader(char target) {
 	}
 }
 
+void printDirectory(Database db) {
+	cout << "List of services:" << endl;
+	for(auto pair : db.directory)
+	{
+		cout << "Service Code: " << pair.first << endl;
+		cout << "Name: " << pair.second.name << endl;
+		cout << "Fee: " << pair.second.fee << endl << endl;
+	}
+}
+
+string validateMember(Database db) {
+	string memID = "";
+	cout << "Please enter member ID number: (9 digits)" << endl;
+	cin >> memID;
+	if(db.members.find(memID) == db.members.end())
+	{
+		cout << "Invalid member ID, please try again";
+		return "null";
+	}
+	if(db.members.at(memID).isValid != true)
+	{
+		cout << "Member status invalid, cannot recieve services" << endl;
+		return "null";
+	}
+	else
+		return memID;
+}
+
+string verifyService(Database db) {
+	string servCode = "";
+	cout << "Enter a service code: (6 digits)" << endl;
+	cin >> servCode;
+	if(db.directory.find(servCode) == db.directory.end())
+	{
+		cout << "Invalid service code" << endl;
+		return "null";
+	}
+	else
+		return servCode;
+}
+
 int main(int argc, char** argv) {
 	printHeader('c');
 	Database database((char*) "data/sample-db.json");
@@ -89,41 +130,20 @@ int main(int argc, char** argv) {
 		while(choice != 'a' && choice != 'b' && choice != 'x');
 
 		switch(choice) {
-			case 'a':				
-				cout << "List of services:" << endl;
-				for(auto pair : database.directory)
-				{
-					cout << "Service Code: " << pair.first << endl;
-					cout << "Name: " << pair.second.name << endl;
-					cout << "Fee: " << pair.second.fee << endl << endl;
-				}
+			case 'a':
+				printDirectory(database);
 				break;
 			case 'b':
 				{
-					string memID = "";
-					cout << "Provide a Service:" << endl;					
-					cout << "Please enter member ID number: (9 digits)" << endl;
-					cin >> memID;
-					if(database.members.find(memID) == database.members.end())
-					{
-						cout << "Invalid member ID, please try again";
+					string memID = validateMember(database);
+					if(memID == "null")
 						break;
-					}
-					if(database.members.at(memID).isValid != true)
-					{
-						cout << "Member status invalid, cannot recieve services" << endl;
+					string servCode = verifyService(database);
+					if(servCode == "null")
 						break;
-					}
-					string servCode = "";
-					cout << "Enter a service code: (6 digits)" << endl;
-					cin >> servCode;
-					if(database.directory.find(servCode) == database.directory.end())
-					{
-						cout << "Invalid service code" << endl;
-						break;
-					}
 					else
 					{
+						//enter relevant dates
 						string currDate = "";
 						string servDate = "";
 						cout << "Enter the current date: (mm/dd/yyyy)" << endl;
@@ -131,6 +151,7 @@ int main(int argc, char** argv) {
 						cout << "Enter the expected service date: (mm/dd/yyyy)" << endl;
 						cin >> servDate;
 
+						//print summary
 						cout << "Service Summary:" << endl;
 						cout << "Date of Service: " << servDate << endl;
 						cout << "Date of Submission: " << currDate << endl;
@@ -138,6 +159,8 @@ int main(int argc, char** argv) {
 						cout << "Provider ID: " << provID << endl;
 						cout << "Service ID: " << servCode << endl;
 						cout << "Fee: " << database.directory.at(servCode).fee << endl;
+
+						//add service to database
 						database.addService(servDate, currDate, memID, provID, servCode, database.directory.at(servCode).fee);
 						database.update();
 					}
