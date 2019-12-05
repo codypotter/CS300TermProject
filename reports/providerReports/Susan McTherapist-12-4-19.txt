@@ -1,0 +1,26 @@
+Name: Susan McTherapist
+ID: 987654322
+Address: 2 Business Plaza
+City: Portland
+State: OR
+ZIP: 97214
+Services Provided: 
+
+Date of service: 11/11/2019
+Date of submission: 11/11/2019 12:12:15
+Member Name: Billy Bob
+Member ID: 000000001
+Service Code: 598470
+Service Type: Dietitian Counseling
+Fee for Service: $9999
+
+Date of service: 11/12/2019
+Date of submission: 11/12/2019 12:12:15
+Member Name: Mary Sue
+Member ID: 000000002
+Service Code: 598470
+Service Type: Dietitian Counseling
+Fee for Service: $9999
+
+Total number of services provided: 2
+Total fee: $19998
