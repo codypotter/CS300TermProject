@@ -3,6 +3,8 @@
  */
 
 #include <iostream>
+#include <fstream>
+#include <ctime>
 #include "Database.h"
 
 void getMember(Database & database);
@@ -37,6 +39,77 @@ void printHeader(char target) {
 	}
 }
 
+string getCurrentDate() {
+	time_t now = time(0);
+	tm* localTime = localtime(&now);
+	string year = to_string(localTime->tm_year - 100);
+	string month = to_string(localTime->tm_mon + 1);
+	string day = to_string(localTime->tm_mday);
+	return (month + "-" + day + "-" + year);
+}
+
+void generateMemberReports(Database db) {
+	ofstream report;
+	for (auto pair : db.members) {
+		Member person = pair.second;
+		string currDate = getCurrentDate();
+		string filename = "reports/memberReports/" + person.name + "-" + currDate + ".txt";
+		report.open (filename);
+		report << "Name: " << person.name;
+		report << "\nID: " << person.id;
+		report << "\nAddress: " << person.street;
+		report << "\nCity: " << person.city;
+		report << "\nState: " << person.state;
+		report << "\nZIP: " << person.zip;
+		report << "\nServices:\n";
+		for (string i : person.services) {	
+			string code = db.services.at(i).serviceCode;
+			report << "\nService Provided: " << db.directory.at(code).name;
+			report << "\nProvider: " << db.services.at(i).providerID;
+			report << "\nDate of Service: " << db.services.at(i).serviceDate << "\n";
+		}
+		report.close();
+	}
+	cout << "Reports generated successfully!" << endl;
+}
+
+void generateProviderReports(Database db) {
+	ofstream report;
+	for (auto pair : db.providers) {
+		Provider helper = pair.second;
+		string currDate = getCurrentDate();
+		int totalFee = 0;
+		int totalVisits = 0;
+		string filename = "reports/providerReports/" + helper.name + "-" + currDate + ".txt";
+		report.open (filename);
+		report << "Name: " << helper.name;
+		report << "\nID: " << helper.id;
+		report << "\nAddress: " << helper.street;
+		report << "\nCity: " << helper.city;
+		report << "\nState: " << helper.state;
+		report << "\nZIP: " << helper.zip;
+		report << "\nServices Provided: \n";
+		for (string i : helper.services) {
+			string memberID = db.services.at(i).memberID;
+			string code = db.services.at(i).serviceCode;
+			int fee = db.directory.at(code).fee;
+			report << "\nDate of service: " << db.services.at(i).serviceDate;
+			report << "\nDate of submission: " << db.services.at(i).submissionDate;
+			report << "\nMember Name: " << db.members.at(memberID).name;
+			report << "\nMember ID: " << memberID;
+			report << "\nService Code: " << code;
+			report << "\nService Type: " << db.directory.at(code).name;
+		       	report << "\nFee for Service: $" << fee << "\n";
+			totalFee+=fee;
+			totalVisits++;
+		}
+		report << "\nTotal number of services provided: " << totalVisits;
+		report << "\nTotal fee: $" << totalFee;
+		report.close();
+	}
+	cout << "Reports generated successfully!" << endl;
+}
+
 int main(int argc, char** argv) {
 	printHeader('c');
 	Database database((char*) "data/sample-db.json");
@@ -53,47 +126,52 @@ int main(int argc, char** argv) {
 	char choice = 0;
 	if(res == 'm') {
 		printHeader(res);
-        string inputName;
-        string inputStreet;
-        string inputCity;
-        string inputState;
-        string inputZip;
-        string inputID;
-        do {
-            cout << "Welcome to the manager terminal. Please select an option." << endl;
-            cout << "(a) Add a new provider" << endl;
-            cout << "(b) Add a new member" << endl;
-            cout << "(c) Edit a provider" << endl;
-            cout << "(d) Edit a member" << endl;
-            cout << "(e) Delete a provider" << endl;
-            cout << "(f) Delete a member" << endl;
-            cout << "(x) Exit" << endl;
-            cin >> choice;
-        }
-        while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd' && choice != 'e' && choice != 'f' && choice !='x');
+		string inputName;
+		string inputStreet;
+		string inputCity;
+		string inputState;
+		string inputZip;
+		string inputID;
+		do {
+			cout << "Welcome to the manager terminal. Please select an option." << endl;
+			cout << "(a) Add a new provider" << endl;
+			cout << "(b) Add a new member" << endl;
+			cout << "(c) Edit a provider" << endl;
+			cout << "(d) Edit a member" << endl;
+			cout << "(e) Delete a provider" << endl;
+			cout << "(f) Delete a member" << endl;
+			cout << "(g) Generate member reports" << endl;
+			cout << "(x) Exit" << endl;
+			cin >> choice;
+		}
+		while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd' && choice != 'e' && choice != 'f' && choice != 'g' && choice !='x');
 
-        switch(choice) {
-            case 'a': 
-                getMember(database);
-                break;
-            case 'b':
-                getProvider(database);
-                break;
-            case 'c':
-                changeMember(database);
-                break;
-            case 'd':
-                changeProvider(database);
-                break;
-            case 'e':
-                deleteProvider(database);
-                break;
-            case 'f':
-                deleteMember(database);
-                break;
-            case 'x':
-                break;
-        }
+		switch(choice) {
+			case 'a':     
+				getProvider(database);
+				break;
+			case 'b':
+				getMember(database);
+				break;
+			case 'c':
+				changeProvider(database);
+				break;
+			case 'd':	
+				changeMember(database);
+				break;
+			case 'e':
+				deleteProvider(database);
+				break;
+			case 'f':
+				deleteMember(database);
+				break;
+			case 'g':
+				database.printMembers();
+				generateMemberReports(database);
+				break;
+			case 'x':
+				break;
+		}
 	}
 
 	if(res == 'p') {
@@ -110,10 +188,11 @@ int main(int argc, char** argv) {
 			cout << "Welcome to the provider terminal" << endl;
 			cout << "(a) View the provider directory" << endl;
 			cout << "(b) Provide service" << endl;
+			cout << "(c) Generate provider reports" << endl;
 			cout << "(x) Exit" << endl;
 			cin >> choice;
 		}
-		while(choice != 'a' && choice != 'b' && choice != 'x');
+		while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'x');
 
 		switch(choice) {
 			case 'a':				
@@ -151,10 +230,17 @@ int main(int argc, char** argv) {
 					}
 					else
 					{
+						time_t now = time(0);
+						tm* localTime = localtime(&now);
 						string currDate = "";
 						string servDate = "";
-						cout << "Enter the current date: (mm/dd/yyyy)" << endl;
-						cin >> currDate;
+						string year = to_string(localTime->tm_year - 100);
+						string month = to_string(localTime->tm_mon + 1);
+						string day = to_string(localTime->tm_mday);
+						string hour = to_string(localTime->tm_hour);
+						string minute = to_string(localTime->tm_min);
+						string second = to_string(localTime->tm_sec);
+						currDate = month + "/" + day + "/" + year + " " + hour + ":" + minute + ":" + second;
 						cout << "Enter the expected service date: (mm/dd/yyyy)" << endl;
 						cin >> servDate;
 
@@ -165,10 +251,15 @@ int main(int argc, char** argv) {
 						cout << "Provider ID: " << provID << endl;
 						cout << "Service ID: " << servCode << endl;
 						cout << "Fee: " << database.directory.at(servCode).fee << endl;
-						database.addService(servDate, currDate, memID, provID, servCode, database.directory.at(servCode).fee);
+						string servID = database.addService(servDate, currDate, memID, provID, servCode, database.directory.at(servCode).fee);
+						database.members.at(memID).services.push_back(servID);
+						database.providers.at(memID).services.push_back(servID);
 						database.update();
 					}
 				}
+				break;
+			case 'c':
+				generateProviderReports(database);
 				break;
 			case 'x':
 				break;
