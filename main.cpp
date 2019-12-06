@@ -1,5 +1,5 @@
 /**
- * Created by Bela, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson, Max VanRaden
+ * Created by Bela Kurzenhauser, Cody Potter, Corbin Stark, Dan Scott, Forest Pearson and Max VanRaden.
  */
 
 #include <iostream>
@@ -22,13 +22,15 @@ void printHeader(char target) {
 		case 'c':
 			cout <<  " __        __   __" << endl;
 			cout << "/  ` |__| /  \\ /  `  /\\  |\\ |" << endl;
-			cout << "\\__, |  | \\__/ \\__, /~~\\ | \\|" << endl << endl;
+			cout << "\\__, |  | \\__/ \\__, /--\\ | \\|" << endl << endl;
 			break;
 		case 'm':
-			cout << "   __  ___                              ______              _           __" << endl;
-			cout << "  /  |/  /__  ___  ___  ___  ___ ____  /_  __/__ ______ _  (_)__  ___ _/ /" << endl;
-			cout << " / /|_/ / _ `/ _ \\/ _ `/ _ `/ -_) __/   / / / -_) __/  ' \\/ / _ \\/ _ `/ /" << endl;
-			cout << "/_/  /_/\\_,_/_//_/\\_,_/\\_, /\\__/_/     /_/  \\__/_/ /_/_/_/_/_//_/\\_,_/_/" << endl;
+			cout << "                                            _____                    _             _ "<<endl;
+			cout << "  /\\/\\   __ _ _ __   __ _  __ _  ___ _ __  /__   \\___ _ __ _ __ ___ (_)_ __   __ _| |"<<endl;
+			cout << " /    \\ / _` | '_ \\ / _` |/ _` |/ _ \\ '__|   / /\\/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` | |"<<endl;
+			cout << "/ /\\/\\ \\ (_| | | | | (_| | (_| |  __/ |     / / |  __/ |  | | | | | | | | | | (_| | |"<<endl;
+			cout << "\\/    \\/\\__,_|_| |_|\\__,_|\\__, |\\___|_|     \\/   \\___|_|  |_| |_| |_|_|_| |_|\\__,_|_|"<<endl;
+			cout << "                          |___/                                                      "<<endl;
 			break;
 		case 'p':
 			cout << " ___             _    _           _____              _           _ " << endl;
@@ -75,9 +77,9 @@ void generateMemberReports(Database db) {
 
 void generateProviderReports(Database db) {
 	ofstream report;
+	string currDate = getCurrentDate();
 	for (auto pair : db.providers) {
 		Provider helper = pair.second;
-		string currDate = getCurrentDate();
 		int totalFee = 0;
 		int totalVisits = 0;
 		string filename = "reports/providerReports/" + helper.name + "-" + currDate + ".txt";
@@ -106,6 +108,23 @@ void generateProviderReports(Database db) {
 		report << "\nTotal number of services provided: " << totalVisits;
 		report << "\nTotal fee: $" << totalFee;
 		report.close();
+	}
+	ofstream eft;
+	for (auto pair : db.providers){
+		Provider helper = pair.second;
+		int totalFee = 0;
+		string filename = "reports/ProviderReports/" + helper.name + "-EFT" + "-" + currDate + ".txt";
+		for(auto pairS : db.services){
+			if(pairS.second.providerID == helper.id){				
+				int fee = db.directory.at(pairS.second.serviceCode).fee;
+				totalFee += fee;
+			}
+		}
+		eft.open(filename);
+		eft << "Name: "<< helper.name<<endl;
+		eft << "Id: "<< helper.id<<endl;
+		eft <<"Amount to be transferred: "<<"$"<<totalFee<<endl;
+		eft.close();
 	}
 	cout << "Reports generated successfully!" << endl;
   }

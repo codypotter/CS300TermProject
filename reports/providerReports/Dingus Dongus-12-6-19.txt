@@ -1,0 +1,10 @@
+Name: Dingus Dongus
+ID: 467157377
+Address: Dingle Dongle
+City: Dinglebop
+State: Dingusland
+ZIP: 76827
+Services Provided: 
+
+Total number of services provided: 0
+Total fee: $0
