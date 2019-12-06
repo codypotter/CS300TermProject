@@ -123,6 +123,7 @@ void printDirectory(Database db) {
 string validateMember(Database db) {
 	string memID = "";
 	cout << "Please enter member ID number: (9 digits)" << endl;
+	cin.ignore(256, '\n');
 	cin >> memID;
 	if(db.members.find(memID) == db.members.end())
 	{
@@ -141,6 +142,7 @@ string validateMember(Database db) {
 string verifyService(Database db) {
 	string servCode = "";
 	cout << "Enter a service code: (6 digits)" << endl;
+	cin.ignore(256, '\n');
 	cin >> servCode;
 	if(db.directory.find(servCode) == db.directory.end())
 	{
@@ -159,6 +161,7 @@ int main(int argc, char** argv) {
 	cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
 	char res = 0;
 	while(res != 'm' && res != 'p') {
+		cin.ignore(256, '\n');
 		cin >> res;
 		if(res != 'm' && res != 'p')
 			cout << "Invalid input. Type 'm' for the manager terminal or 'p' for the provider terminal." << endl;
@@ -183,6 +186,7 @@ int main(int argc, char** argv) {
 			cout << "(f) Delete a member" << endl;
 			cout << "(g) Generate member reports" << endl;
 			cout << "(x) Exit" << endl;
+			cin.ignore(256, '\n');
 			cin >> choice;
 		}
 		while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'd' && choice != 'e' && choice != 'f' && choice != 'g' && choice !='x');
@@ -218,6 +222,7 @@ int main(int argc, char** argv) {
 	if(res == 'p') {
 		string provID = "";
 		cout << "Please enter provider number: (9 digits)" << endl;
+		cin.ignore(256, '\n');
 		cin >> provID;
 		if(database.providers.find(provID) == database.providers.end())
 		{
@@ -231,6 +236,7 @@ int main(int argc, char** argv) {
 			cout << "(b) Provide service" << endl;
 			cout << "(c) Generate provider reports" << endl;
 			cout << "(x) Exit" << endl;
+			cin.ignore(256, '\n');
 			cin >> choice;
 		}
 		while(choice != 'a' && choice != 'b' && choice != 'c' && choice != 'x');
@@ -262,6 +268,7 @@ int main(int argc, char** argv) {
 						string second = to_string(localTime->tm_sec);
 						currDate = month + "/" + day + "/" + year + " " + hour + ":" + minute + ":" + second;
 						cout << "Enter the expected service date: (mm/dd/yyyy)" << endl;
+						cin.ignore(256, '\n');
 						cin >> servDate;
 
 						//print summary
