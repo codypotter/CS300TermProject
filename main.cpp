@@ -121,7 +121,7 @@ void printDirectory(Database db) {
 }
 
 //There is a database verion of this called validateMemID that takes an ID as a string and returns
-//true or false depending on if the ID is valid
+//true or false depending on if the ID is valid - there is a matching function for provider IDs
 string validateMember(Database db) {
 	string memID = "";
 	cout << "Please enter member ID number: (9 digits)" << endl;
@@ -140,27 +140,6 @@ string validateMember(Database db) {
 	else
 		return memID;
 }
-//There is a database verion of this called validateProvID that takes an ID as a string and returns
-//true or false depending on if the ID is valid
-string validateProvider(Database db) {
-	string providerID = "";
-	cout << "Please enter provider ID number: (9 digits)" << endl;
-	cin.ignore(256, '\n');
-	cin >> providerID;
-	if(db.providers.find(providerID) == db.providers.end())
-	{
-		cout << "Invalid provider ID, please try again";
-		return "null";
-	}
-	if(db.providers.at(providerID).isValid != true)
-	{
-		cout << "Provider status invalid, cannot recieve services" << endl;
-		return "null";
-	}
-	else
-		return providerID;
-}
-
 string verifyService(Database db) {
 	string servCode = "";
 	cout << "Enter a service code: (6 digits)" << endl;

@@ -283,9 +283,9 @@ void Database::editMember(std::string memberID) {
     }
 }
 bool Database::validateMemID(std::string memberID) {
-    if(db.members.find(memberID) == db.members.end())
+    if(members.find(memberID) == members.end())
 	{
-		cout << "Invalid member ID, please try again";
+		std::cout << "Invalid member ID, please try again";
 		return false;
 	}
 	else
@@ -394,9 +394,9 @@ void Database::editProvider(std::string providerID)
     }
 }
 bool Database::validateProvID(std::string providerID) {
-    if(db.providers.find(providerID) == db.providers.end())
+    if(providers.find(providerID) == providers.end())
 	{
-		cout << "Invalid provider ID, please try again";
+		std::cout << "Invalid provider ID, please try again";
 		return false;
 	}
 	else
