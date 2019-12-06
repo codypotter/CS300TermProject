@@ -7,171 +7,25 @@
 #include <ctime>
 #include "Database.h"
 
+
+//Helper function prototypes, implementation found in Helpers.cpp
 void getMember(Database & database);
 void getProvider(Database & database);
 void deleteMember(Database & database);
 void deleteProvider(Database & database);
 void changeMember(Database & database);
 void changeProvider(Database & database);
+void printHeader(char target);
+string getCurrentDate();
+void generateMemberReports(Database db);
+void generateProviderReports(Database db);
+void printDirectory(Database db);
+string validateMember(Database db);
+string verifyService(Database db);
 
 using namespace std;
 
-void printHeader(char target) {
-	switch(target)
-	{
-		case 'c':
-			cout <<  " __        __   __" << endl;
-			cout << "/  ` |__| /  \\ /  `  /\\  |\\ |" << endl;
-			cout << "\\__, |  | \\__/ \\__, /--\\ | \\|" << endl << endl;
-			break;
-		case 'm':
-			cout << "                                            _____                    _             _ "<<endl;
-			cout << "  /\\/\\   __ _ _ __   __ _  __ _  ___ _ __  /__   \\___ _ __ _ __ ___ (_)_ __   __ _| |"<<endl;
-			cout << " /    \\ / _` | '_ \\ / _` |/ _` |/ _ \\ '__|   / /\\/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` | |"<<endl;
-			cout << "/ /\\/\\ \\ (_| | | | | (_| | (_| |  __/ |     / / |  __/ |  | | | | | | | | | | (_| | |"<<endl;
-			cout << "\\/    \\/\\__,_|_| |_|\\__,_|\\__, |\\___|_|     \\/   \\___|_|  |_| |_| |_|_|_| |_|\\__,_|_|"<<endl;
-			cout << "                          |___/                                                      "<<endl;
-			break;
-		case 'p':
-			cout << " ___             _    _           _____              _           _ " << endl;
-			cout << "| _ \\_ _ _____ _(_)__| |___ _ _  |_   _|__ _ _ _ __ (_)_ _  __ _| |" << endl;
-			cout << "|  _/ '_/ _ \\ V / / _` / -_) '_|   | |/ -_) '_| '  \\| | ' \\/ _` | |" << endl;
-			cout << "|_| |_| \\___/\\_/|_\\__,_\\___|_|     |_|\\___|_| |_|_|_|_|_||_\\__,_|_|" << endl;
-			break;
-	}
-}
 
-string getCurrentDate() {
-	time_t now = time(0);
-	tm* localTime = localtime(&now);
-	string year = to_string(localTime->tm_year - 100);
-	string month = to_string(localTime->tm_mon + 1);
-	string day = to_string(localTime->tm_mday);
-	return (month + "-" + day + "-" + year);
-}
-
-void generateMemberReports(Database db) {
-	ofstream report;
-	for (auto pair : db.members) {
-		Member person = pair.second;
-		string currDate = getCurrentDate();
-		string filename = "reports/memberReports/" + person.name + "-" + currDate + ".txt";
-		report.open (filename);
-		report << "Name: " << person.name;
-		report << "\nID: " << person.id;
-		report << "\nAddress: " << person.street;
-		report << "\nCity: " << person.city;
-		report << "\nState: " << person.state;
-		report << "\nZIP: " << person.zip;
-		report << "\nServices:\n";
-		for (string i : person.services) {	
-			string code = db.services.at(i).serviceCode;
-			report << "\nService Provided: " << db.directory.at(code).name;
-			report << "\nProvider: " << db.services.at(i).providerID;
-			report << "\nDate of Service: " << db.services.at(i).serviceDate << "\n";
-		}
-		report.close();
-	}
-	cout << "Reports generated successfully!" << endl;
-}
-
-void generateProviderReports(Database db) {
-	ofstream report;
-	string currDate = getCurrentDate();
-	for (auto pair : db.providers) {
-		Provider helper = pair.second;
-		int totalFee = 0;
-		int totalVisits = 0;
-		string filename = "reports/providerReports/" + helper.name + "-" + currDate + ".txt";
-		report.open (filename);
-		report << "Name: " << helper.name;
-		report << "\nID: " << helper.id;
-		report << "\nAddress: " << helper.street;
-		report << "\nCity: " << helper.city;
-		report << "\nState: " << helper.state;
-		report << "\nZIP: " << helper.zip;
-		report << "\nServices Provided: \n";
-		for (string i : helper.services) {
-			string memberID = db.services.at(i).memberID;
-			string code = db.services.at(i).serviceCode;
-			int fee = db.directory.at(code).fee;
-			report << "\nDate of service: " << db.services.at(i).serviceDate;
-			report << "\nDate of submission: " << db.services.at(i).submissionDate;
-			report << "\nMember Name: " << db.members.at(memberID).name;
-			report << "\nMember ID: " << memberID;
-			report << "\nService Code: " << code;
-			report << "\nService Type: " << db.directory.at(code).name;
-		       	report << "\nFee for Service: $" << fee << "\n";
-			totalFee+=fee;
-			totalVisits++;
-		}
-		report << "\nTotal number of services provided: " << totalVisits;
-		report << "\nTotal fee: $" << totalFee;
-		report.close();
-	}
-	ofstream eft;
-	for (auto pair : db.providers){
-		Provider helper = pair.second;
-		int totalFee = 0;
-		string filename = "reports/ProviderReports/" + helper.name + "-EFT" + "-" + currDate + ".txt";
-		for(auto pairS : db.services){
-			if(pairS.second.providerID == helper.id){				
-				int fee = db.directory.at(pairS.second.serviceCode).fee;
-				totalFee += fee;
-			}
-		}
-		eft.open(filename);
-		eft << "Name: "<< helper.name<<endl;
-		eft << "Id: "<< helper.id<<endl;
-		eft <<"Amount to be transferred: "<<"$"<<totalFee<<endl;
-		eft.close();
-	}
-	cout << "Reports generated successfully!" << endl;
-  }
-  
-void printDirectory(Database db) {
-	cout << "List of services:" << endl;
-	for(auto pair : db.directory)
-	{
-		cout << "Service Code: " << pair.first << endl;
-		cout << "Name: " << pair.second.name << endl;
-		cout << "Fee: " << pair.second.fee << endl << endl;
-	}
-}
-
-//There is a database verion of this called validateMemID that takes an ID as a string and returns
-//true or false depending on if the ID is valid - there is a matching function for provider IDs
-string validateMember(Database db) {
-	string memID = "";
-	cout << "Please enter member ID number: (9 digits)" << endl;
-	cin.ignore(256, '\n');
-	cin >> memID;
-	if(db.members.find(memID) == db.members.end())
-	{
-		cout << "Invalid member ID, please try again";
-		return "null";
-	}
-	if(db.members.at(memID).isValid != true)
-	{
-		cout << "Member status invalid, cannot recieve services" << endl;
-		return "null";
-	}
-	else
-		return memID;
-}
-string verifyService(Database db) {
-	string servCode = "";
-	cout << "Enter a service code: (6 digits)" << endl;
-	cin.ignore(256, '\n');
-	cin >> servCode;
-	if(db.directory.find(servCode) == db.directory.end())
-	{
-		cout << "Invalid service code" << endl;
-		return "null";
-	}
-	else
-		return servCode;
-}
 
 int main(int argc, char** argv) {
 	printHeader('c');
@@ -181,7 +35,8 @@ int main(int argc, char** argv) {
 	cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
 	char res = 0;
 	while(res != 'm' && res != 'p') {
-		cin.ignore(256, '\n');
+		//cin.ignore(256, '\n');
+		//cin.clear();
 		cin >> res;
 		if(res != 'm' && res != 'p')
 			cout << "Invalid input. Type 'm' for the manager terminal or 'p' for the provider terminal." << endl;
