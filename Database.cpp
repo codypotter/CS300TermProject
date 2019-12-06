@@ -210,6 +210,7 @@ bool Database::removeMember(std::string memberID) {
     members.erase(memberID);
     return true;
 }
+
 //Displays the member passed by member ID
 void Database::displayMember(std::string memberID) {
     Member member = members.at(memberID);
@@ -281,6 +282,16 @@ void Database::editMember(std::string memberID) {
             return;
     }
 }
+bool Database::validateMemID(std::string memberID) {
+    if(db.members.find(memberID) == db.members.end())
+	{
+		cout << "Invalid member ID, please try again";
+		return false;
+	}
+	else
+		return true;
+}
+
 //////////////////// CRUD Operations for Providers ////////////////////
 /**
  * Add a provider to the providers map
@@ -381,6 +392,15 @@ void Database::editProvider(std::string providerID)
         std::cout << "\nUnknown input. No provider was edited.";
         return;
     }
+}
+bool Database::validateProvID(std::string providerID) {
+    if(db.providers.find(providerID) == db.providers.end())
+	{
+		cout << "Invalid provider ID, please try again";
+		return false;
+	}
+	else
+		return true;
 }
 //////////////////// CRUD Operations for Services ////////////////////
 /**

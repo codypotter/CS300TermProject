@@ -41,12 +41,14 @@ public:
     std::string addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeMember(std::string memberID);
     void editMember(std::string memberID);
+    bool validateMemID(std::string memberID);
 
     // CRUD Operations for Providers
     void displayProvider(std::string providerID);
     std::string addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
     bool removeProvider(std::string providerID);
     void editProvider(std::string providerID);
+    bool validateProvID(std::string providerID);
 
     // CRUD Operations for Services
     std::string addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);
