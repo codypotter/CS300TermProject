@@ -11,6 +11,7 @@ void getMember(Database & database) {
     string inputCity;
     string inputState;
     string inputZip;
+    string newID;
 
     cout << "\nPlease enter the name of the member to add: ";
     cin.ignore(256, '\n');
@@ -27,9 +28,9 @@ void getMember(Database & database) {
     cout << "\nPlease enter the zip of the member to add: ";
     cin.ignore(256, '\n');
     getline(cin, inputZip);
-    database.addMember(inputName, inputStreet, inputCity, inputState, inputZip);
+    newID = database.addMember(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
-    cout << "\n\nMember added to database.";
+    cout << "\n\nMember added to database and assigned ID: " << newID;
     return;
 }
 
@@ -40,6 +41,7 @@ void getProvider(Database & database) {
     string inputCity;
     string inputState;
     string inputZip;
+    string newID;
 
     cout << "\nPlease enter the name of the provider to add: ";
     cin.ignore(256, '\n');
@@ -56,9 +58,9 @@ void getProvider(Database & database) {
     cout << "\nPlease enter the zip of the provider to add: ";
     cin.ignore(256, '\n');
     getline(cin, inputZip);
-    database.addProvider(inputName, inputStreet, inputCity, inputState, inputZip);
+    newID = database.addProvider(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
-    cout << "\n\nProvider added to database.";
+    cout << "\n\nProvider added to database and assigned ID: " << newID;
     return;
 }
 
