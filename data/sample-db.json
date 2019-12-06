@@ -43,50 +43,19 @@
 			"state" : "OR",
 			"street" : "1234 Fake Street",
 			"zip" : "97214"
-		},
-		"018365207" : 
-		{
-			"city" : "Portland",
-			"id" : "018365207",
-			"isValid" : true,
-			"name" : "",
-			"state" : "Oregon",
-			"street" : "16360 SE Test Avenue",
-			"zip" : "97267"
-		},
-		"695342831" : 
-		{
-			"city" : "Beaverton",
-			"id" : "695342831",
-			"isValid" : false,
-			"name" : "Cody",
-			"state" : "OR",
-			"street" : "Osprey Street",
-			"zip" : "97007"
-		},
-		"737915180" : 
-		{
-			"city" : "asd",
-			"id" : "737915180",
-			"isValid" : true,
-			"name" : "",
-			"state" : "la",
-			"street" : "la",
-			"zip" : "hi"
-		},
-		"744321196" : 
-		{
-			"city" : "Beaverton",
-			"id" : "744321196",
-			"isValid" : true,
-			"name" : "Cody",
-			"state" : "OR",
-			"street" : "Osprey Street",
-			"zip" : "97007"
 		}
 	},
 	"providers" : 
 	{
+		"467157377" : 
+		{
+			"city" : "Dinglebop",
+			"id" : "467157377",
+			"name" : "Dingus Dongus",
+			"state" : "Dingusland",
+			"street" : "Dingle Dongle",
+			"zip" : "76827"
+		},
 		"987654321" : 
 		{
 			"city" : "Portland",
@@ -120,7 +89,7 @@
 		{
 			"fee" : 9999,
 			"id" : "598470",
-			"name" : "foobar"
+			"name" : "Dietitian Counseling"
 		},
 		"738575" : 
 		{
@@ -153,7 +122,7 @@
 			"id" : "12346",
 			"memberID" : "000000001",
 			"providerID" : "987654322",
-			"serviceCode" : "33333",
+			"serviceCode" : "598470",
 			"serviceDate" : "11/11/2019",
 			"submissionDate" : "11/11/2019 12:12:15"
 		},
@@ -173,7 +142,7 @@
 			"id" : "12348",
 			"memberID" : "000000002",
 			"providerID" : "987654322",
-			"serviceCode" : "33333",
+			"serviceCode" : "598470",
 			"serviceDate" : "11/12/2019",
 			"submissionDate" : "11/12/2019 12:12:15"
 		}
