@@ -7,6 +7,7 @@
 #include <ctime>
 #include "Database.h"
 
+using namespace std;
 
 //Helper function prototypes, implementation found in Helpers.cpp
 void getMember(Database & database);
@@ -23,7 +24,6 @@ void printDirectory(Database db);
 string validateMember(Database db);
 string verifyService(Database db);
 
-using namespace std;
 
 
 
