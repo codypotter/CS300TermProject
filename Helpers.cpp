@@ -11,21 +11,26 @@ void getMember(Database & database) {
     string inputCity;
     string inputState;
     string inputZip;
+    string newID;
 
     cout << "\nPlease enter the name of the member to add: ";
     cin.ignore(256, '\n');
     getline(cin, inputName);
     cout << "\nPlease enter the street address of the member to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputStreet);
     cout << "\nPlease enter the name of the city in which the member is located: ";
+    cin.ignore(256, '\n');
     getline(cin, inputCity);
     cout << "\nPlease enter the state of the member to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputState);
     cout << "\nPlease enter the zip of the member to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputZip);
-    database.addMember(inputName, inputStreet, inputCity, inputState, inputZip);
+    newID = database.addMember(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
-    cout << "\n\nMember added to database.";
+    cout << "\n\nMember added to database and assigned ID: " << newID;
     return;
 }
 
@@ -36,44 +41,58 @@ void getProvider(Database & database) {
     string inputCity;
     string inputState;
     string inputZip;
+    string newID;
 
     cout << "\nPlease enter the name of the provider to add: ";
     cin.ignore(256, '\n');
     getline(cin, inputName);
     cout << "\nPlease enter the street address of the provider to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputStreet);
     cout << "\nPlease enter the name of the city in which the provider is located: ";
+    cin.ignore(256, '\n');
     getline(cin, inputCity);
     cout << "\nPlease enter the state of the provider to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputState);
     cout << "\nPlease enter the zip of the provider to add: ";
+    cin.ignore(256, '\n');
     getline(cin, inputZip);
-    database.addProvider(inputName, inputStreet, inputCity, inputState, inputZip);
+    newID = database.addProvider(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
-    cout << "\n\nProvider added to database.";
+    cout << "\n\nProvider added to database and assigned ID: " << newID;
     return;
 }
 
 //Prompts user for ID to delete, displays name to confirm with user, 
 //prompts for confirmation, deletes if confirmation is provided
-void deleteMember(Database & database) {
+void deleteMember(Database &database)
+{
     string inputID;
     char input;
-    
+
     cout << "\nPlease input the ID of the member to delete: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateMemID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No member will be deleted.";
+        return;
+    }
     Member memberToDelete = database.members.at(inputID);
     cout << "\nThat member ID matches the following member: " << memberToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
+    cin.ignore(256, '\n');
     cin >> input;
-    
-    if(toupper(input) == 'Y'){
+
+    if (toupper(input) == 'Y')
+    {
         cout << "\nMember has been removed";
         database.removeMember(inputID);
         database.update();
     }
-    else {
+    else
+    {
         cout << "\nThe member has not been removed.";
     }
     return;
@@ -81,14 +100,21 @@ void deleteMember(Database & database) {
 //Same as deleteMember, but for providers
 void deleteProvider(Database & database) {
     string inputID;
+    cin.ignore(256, '\n');
     char input;
 
     cout << "\nPlease input the ID of the provider to delete: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateProvID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No provider will be deleted.";
+        return;
+    }
     Provider providerToDelete = database.providers.at(inputID);
     cout << "\nThat provider ID matches the following provider: " << providerToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
+    cin.ignore(256, '\n');
     cin >> input;
     if(toupper(input) == 'Y'){
         cout << "\nProvider has been removed";
@@ -105,9 +131,14 @@ void deleteProvider(Database & database) {
 void changeMember(Database & database) {
     string inputID;
     
-    cout << "\nPlease input the name of the member to edit: ";
+    cout << "\nPlease input the ID of the member to edit: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateMemID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No member will be edited.";
+        return;
+    }
     database.editMember(inputID);
     return;
 }
@@ -116,9 +147,14 @@ void changeMember(Database & database) {
 void changeProvider(Database & database) {
     string inputID;
     
-    cout << "\nPlease input the name of the provider to edit: ";
+    cout << "\nPlease input the ID of the provider to edit: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateProvID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No provider will be edited.";
+        return;
+    }
     database.editProvider(inputID);
     return;
 }

@@ -1,0 +1,15 @@
+build/Database.obj
+build/Helpers.obj
+build/json_reader.obj
+build/json_value.obj
+build/json_writer.obj
+build/main.exe
+build/main.obj
+build/Member.obj
+build/Provider.obj
+build/Service.obj
+build/ServiceEntry.obj
+reports/memberReports/Billy Bob-12-5-19.txt
+reports/memberReports/Eric-12-5-19.txt
+reports/memberReports/Gina-12-5-19.txt
+reports/memberReports/Mary Sue-12-5-19.txt
