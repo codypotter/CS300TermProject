@@ -230,49 +230,50 @@ void Database::editMember(std::string memberID) {
     std::cout << "\n\t(e) Zip";
     std::cout << "\n\t(f) Exit without editing";
     std::cout << "\n\nPlease enter your selection: ";
-    std::cin.ignore(256, '\n');
     std::cin >> choice;
+    std::cin.ignore(256, '\n');
+    
 
     switch(tolower(choice)) {
         case('a'):
             std::cout << "\nPlease enter a new name: ";
-            std::cin.ignore(256, '\n');
             getline(std::cin, newValue);
+            std::cin.ignore(256, '\n');
             members.at(memberID).name = newValue;
             update();
-            std::cout << "\nMember " << memberID << " now has the name " << newValue << ".";
+            std::cout << "\nMember " << memberID << " now has the name " << newValue << ".\n";
             break;
         case('b'):
             std::cout << "\nPlease enter a new street address: ";
-            std::cin.ignore(256, '\n');
             getline(std::cin, newValue);
+            std::cin.ignore(256, '\n');
             members.at(memberID).street = newValue;
             update();
-            std::cout << "\nMember " << memberID << " now has the street address " << newValue << ".";
+            std::cout << "\nMember " << memberID << " now has the street address " << newValue << ".\n";
             break;
         case('c'):
             std::cout << "\nPlease enter a new city: ";
-            std::cin.ignore(256, '\n');
             getline(std::cin, newValue);
+            std::cin.ignore(256, '\n');
             members.at(memberID).city = newValue;
             update();
-            std::cout << "\nMember " << memberID << " now has the city " << newValue << ".";
+            std::cout << "\nMember " << memberID << " now has the city " << newValue << ".\n";
             break;
         case('d'):
             std::cout << "\nPlease enter a new state: ";
-            std::cin.ignore(256, '\n');
             getline(std::cin, newValue);
+            std::cin.ignore(256, '\n');
             members.at(memberID).state = newValue;
             update();
-            std::cout << "\nMember " << memberID << " now has the state " << newValue << ".";
+            std::cout << "\nMember " << memberID << " now has the state " << newValue << ".\n";
             break;
         case('e'):
             std::cout << "\nPlease enter a new zip code: ";
-            std::cin.ignore(256, '\n');
             getline(std::cin, newValue);
+            std::cin.ignore(256, '\n');
             members.at(memberID).zip = newValue;
             update();
-            std::cout << "\nMember " << memberID << " now has the zip code " << newValue << ".";
+            std::cout << "\nMember " << memberID << " now has the zip code " << newValue << ".\n";
             break;
         case('f'):
             std::cout << "\nNo member was edited.";
@@ -340,8 +341,8 @@ void Database::editProvider(std::string providerID)
     std::cout << "\n\t(e) Zip";
     std::cout << "\n\t(f) Exit without editing";
     std::cout << "\n\nPlease enter your selection: ";
-    std::cin.ignore(256, '\n');
     std::cin >> choice;
+    std::cin.ignore(256, '\n');
 
     switch (tolower(choice))
     {
@@ -351,7 +352,7 @@ void Database::editProvider(std::string providerID)
         getline(std::cin, newValue);
         providers.at(providerID).name = newValue;
         update();
-        std::cout << "\nProvider " << providerID << " now has the name " << newValue << ".";
+        std::cout << "\nProvider " << providerID << " now has the name " << newValue << ".\n";
         break;
     case ('b'):
         std::cout << "\nPlease enter a new street address: ";
@@ -359,7 +360,7 @@ void Database::editProvider(std::string providerID)
         getline(std::cin, newValue);
         providers.at(providerID).street = newValue;
         update();
-        std::cout << "\nProvider " << providerID << " now has the street address " << newValue << ".";
+        std::cout << "\nProvider " << providerID << " now has the street address " << newValue << ".\n";
         break;
     case ('c'):
         std::cout << "\nPlease enter a new city: ";
@@ -367,7 +368,7 @@ void Database::editProvider(std::string providerID)
         getline(std::cin, newValue);
         providers.at(providerID).city = newValue;
         update();
-        std::cout << "\nProvider " << providerID << " now has the city " << newValue << ".";
+        std::cout << "\nProvider " << providerID << " now has the city " << newValue << ".\n";
         break;
     case ('d'):
         std::cout << "\nPlease enter a new state: ";
@@ -375,7 +376,7 @@ void Database::editProvider(std::string providerID)
         getline(std::cin, newValue);
         providers.at(providerID).state = newValue;
         update();
-        std::cout << "\nProvider " << providerID << " now has the state " << newValue << ".";
+        std::cout << "\nProvider " << providerID << " now has the state " << newValue << ".\n";
         break;
     case ('e'):
         std::cout << "\nPlease enter a new zip code: ";
@@ -383,7 +384,7 @@ void Database::editProvider(std::string providerID)
         getline(std::cin, newValue);
         providers.at(providerID).zip = newValue;
         update();
-        std::cout << "\nProvider " << providerID << " now has the zip code " << newValue << ".";
+        std::cout << "\nProvider " << providerID << " now has the zip code " << newValue << ".\n";
         break;
     case ('f'):
         std::cout << "\nNo provider was edited.";
