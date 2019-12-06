@@ -1,0 +1,15 @@
+Name: Billy Bob
+ID: 000000001
+Address: 1234 Sunshine Road
+City: Portland
+State: OR
+ZIP: 97214
+Services:
+
+Service Provided: Dietitian Counseling
+Provider: 987654321
+Date of Service: 11/13/2019
+
+Service Provided: Dietitian Counseling
+Provider: 987654322
+Date of Service: 11/11/2019
