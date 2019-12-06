@@ -66,25 +66,33 @@ void getProvider(Database & database) {
 
 //Prompts user for ID to delete, displays name to confirm with user, 
 //prompts for confirmation, deletes if confirmation is provided
-void deleteMember(Database & database) {
+void deleteMember(Database &database)
+{
     string inputID;
     char input;
-    
+
     cout << "\nPlease input the ID of the member to delete: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateMemID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No member will be deleted.";
+        return;
+    }
     Member memberToDelete = database.members.at(inputID);
     cout << "\nThat member ID matches the following member: " << memberToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
     cin.ignore(256, '\n');
     cin >> input;
-    
-    if(toupper(input) == 'Y'){
+
+    if (toupper(input) == 'Y')
+    {
         cout << "\nMember has been removed";
         database.removeMember(inputID);
         database.update();
     }
-    else {
+    else
+    {
         cout << "\nThe member has not been removed.";
     }
     return;
@@ -98,6 +106,11 @@ void deleteProvider(Database & database) {
     cout << "\nPlease input the ID of the provider to delete: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateProvID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No provider will be deleted.";
+        return;
+    }
     Provider providerToDelete = database.providers.at(inputID);
     cout << "\nThat provider ID matches the following provider: " << providerToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
@@ -118,9 +131,14 @@ void deleteProvider(Database & database) {
 void changeMember(Database & database) {
     string inputID;
     
-    cout << "\nPlease input the name of the member to edit: ";
+    cout << "\nPlease input the ID of the member to edit: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateMemID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No member will be edited.";
+        return;
+    }
     database.editMember(inputID);
     return;
 }
@@ -129,9 +147,14 @@ void changeMember(Database & database) {
 void changeProvider(Database & database) {
     string inputID;
     
-    cout << "\nPlease input the name of the provider to edit: ";
+    cout << "\nPlease input the ID of the provider to edit: ";
     cin.ignore(256, '\n');
     getline(cin, inputID);
+    if (database.validateProvID(inputID) == false)
+    {
+        cout << "\nThat ID is invalid. No provider will be edited.";
+        return;
+    }
     database.editProvider(inputID);
     return;
 }
