@@ -13,6 +13,6 @@
 $ mkdir build && cd build
 $ cmake ..
 $ make
+$ ./CS300TermProject
 ```
 
-CS300TermProject will be generated in the current directory
