@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 		{
 			do
 			{
-				cout << "(a) Add a new provider" << endl;
+				cout << "\n(a) Add a new provider" << endl;
 				cout << "(b) Add a new member" << endl;
 				cout << "(c) Edit a provider" << endl;
 				cout << "(d) Edit a member" << endl;
@@ -180,7 +180,7 @@ int main(int argc, char **argv)
 
 					string servID = database.addService(servDate, currDate, memID, provID, servCode, database.directory.at(servCode).fee);
 					database.members.at(memID).services.push_back(servID);
-					database.providers.at(memID).services.push_back(servID);
+					database.providers.at(provID).services.push_back(servID);
 					database.update();
 				}
 			}
