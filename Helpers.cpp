@@ -72,7 +72,6 @@ void deleteMember(Database &database)
     cout << "\nThat member ID matches the following member: " << memberToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
     cin >> input;
-    cin.ignore(256, '\n');
 
     if (toupper(input) == 'Y')
     {
@@ -84,6 +83,7 @@ void deleteMember(Database &database)
     {
         cout << "\nThe member has not been removed.";
     }
+    cin.ignore(256, '\n');
     return;
 }
 //Same as deleteMember, but for providers
@@ -101,7 +101,6 @@ void deleteProvider(Database & database) {
     cout << "\nThat provider ID matches the following provider: " << providerToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
     cin >> input;
-    cin.ignore(256, '\n');
     if(toupper(input) == 'Y'){
         cout << "\nProvider has been removed";
         database.removeProvider(inputID);
@@ -110,6 +109,7 @@ void deleteProvider(Database & database) {
     else {
         cout << "\nThe provider has not been removed.";
     }
+    cin.ignore(256, '\n');
     return;
 }
 
@@ -119,7 +119,6 @@ void changeMember(Database & database) {
     
     cout << "\nPlease input the ID of the member to edit: ";
     getline(cin, inputID);
-    cin.ignore(256, '\n');
     if (database.validateMemID(inputID) == false)
     {
         cout << "\nThat ID is invalid. No member will be edited.";
@@ -135,7 +134,6 @@ void changeProvider(Database & database) {
     
     cout << "\nPlease input the ID of the provider to edit: ";
     getline(cin, inputID);
-    cin.ignore(256, '\n');
     if (database.validateProvID(inputID) == false)
     {
         cout << "\nThat ID is invalid. No provider will be edited.";
@@ -242,7 +240,7 @@ void generateProviderReports(Database db) {
 	for (auto pair : db.providers){
 		Provider helper = pair.second;
 		int totalFee = 0;
-		string filename = "reports/ProviderReports/" + helper.name + "-EFT" + "-" + currDate + ".txt";
+		string filename = "reports/EFTReports/" + helper.name + "-EFT" + "-" + currDate + ".txt";
 		for(auto pairS : db.services){
 			if(pairS.second.providerID == helper.id){				
 				int fee = db.directory.at(pairS.second.serviceCode).fee;
@@ -274,7 +272,6 @@ string validateMember(Database db) {
 	string memID = "";
 	cout << "Please enter member ID number: (9 digits)" << endl;
 	cin >> memID;
-    cin.ignore(256, '\n');
 	if(db.members.find(memID) == db.members.end())
 	{
 		cout << "Invalid member ID, please try again";
@@ -292,7 +289,6 @@ string verifyService(Database db) {
 	string servCode = "";
 	cout << "Enter a service code: (6 digits)" << endl;
 	cin >> servCode;
-    cin.ignore(256, '\n');
 	if(db.directory.find(servCode) == db.directory.end())
 	{
 		cout << "Invalid service code" << endl;
