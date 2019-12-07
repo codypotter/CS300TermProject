@@ -1,3 +1,0 @@
-Name: Susan McTherapist
-Id: 987654322
-Amount to be transferred: $19998

@@ -1,8 +1,8 @@
 
 {
-	"members" : 
+	"members" :
 	{
-		"000000000" : 
+		"000000000" :
 		{
 			"city" : "Portland",
 			"id" : "000000000",
@@ -12,7 +12,7 @@
 			"street" : "1234 Fake Street",
 			"zip" : "97214"
 		},
-		"000000001" : 
+		"000000001" :
 		{
 			"city" : "Portland",
 			"id" : "000000001",
@@ -23,7 +23,7 @@
 			"street" : "1234 Sunshine Road",
 			"zip" : "97214"
 		},
-		"000000002" : 
+		"000000002" :
 		{
 			"city" : "Beaverton",
 			"id" : "000000002",
@@ -34,7 +34,7 @@
 			"street" : "9827 Broadway Drive",
 			"zip" : "97007"
 		},
-		"000000005" : 
+		"000000005" :
 		{
 			"city" : "Portland",
 			"id" : "000000005",
@@ -45,27 +45,9 @@
 			"zip" : "97214"
 		}
 	},
-	"providers" : 
+	"providers" :
 	{
-		"467157377" : 
-		{
-			"city" : "Dinglebop",
-			"id" : "467157377",
-			"name" : "Dingus Dongus",
-			"state" : "Dingusland",
-			"street" : "Dingle Dongle",
-			"zip" : "76827"
-		},
-		"503245313" : 
-		{
-			"city" : "fds",
-			"id" : "503245313",
-			"name" : "Mary Sue Clark",
-			"state" : "fsd",
-			"street" : "fds",
-			"zip" : "fds"
-		},
-		"987654321" : 
+		"987654321" :
 		{
 			"city" : "Portland",
 			"id" : "987654321",
@@ -75,7 +57,7 @@
 			"street" : "1 Business Plaza",
 			"zip" : "97214"
 		},
-		"987654322" : 
+		"987654322" :
 		{
 			"city" : "Portland",
 			"id" : "987654322",
@@ -86,36 +68,9 @@
 			"zip" : "97214"
 		}
 	},
-	"service-directory" : 
+	"services" :
 	{
-		"395876" : 
-		{
-			"fee" : 2050,
-			"id" : "395876",
-			"name" : "BMI Assessment"
-		},
-		"598470" : 
-		{
-			"fee" : 9999,
-			"id" : "598470",
-			"name" : "Dietitian Counseling"
-		},
-		"738575" : 
-		{
-			"fee" : 33199,
-			"id" : "738575",
-			"name" : "Cardiovascular Health Screening"
-		},
-		"883948" : 
-		{
-			"fee" : 12099,
-			"id" : "883948",
-			"name" : "Aerobics Exercise"
-		}
-	},
-	"services" : 
-	{
-		"12345" : 
+		"12345" :
 		{
 			"fee" : 12097,
 			"id" : "12345",
@@ -125,7 +80,7 @@
 			"serviceDate" : "11/13/2019",
 			"submissionDate" : "11/13/2019 12:12:15"
 		},
-		"12346" : 
+		"12346" :
 		{
 			"fee" : 9687,
 			"id" : "12346",
@@ -135,7 +90,7 @@
 			"serviceDate" : "11/11/2019",
 			"submissionDate" : "11/11/2019 12:12:15"
 		},
-		"12347" : 
+		"12347" :
 		{
 			"fee" : 12097,
 			"id" : "12347",
@@ -145,7 +100,7 @@
 			"serviceDate" : "11/12/2019",
 			"submissionDate" : "11/12/2019 12:12:15"
 		},
-		"12348" : 
+		"12348" :
 		{
 			"fee" : 12097,
 			"id" : "12348",
@@ -154,6 +109,33 @@
 			"serviceCode" : "598470",
 			"serviceDate" : "11/12/2019",
 			"submissionDate" : "11/12/2019 12:12:15"
+		}
+	},
+	"service-directory":
+	{
+		"598470":
+		{
+			"id": "598470",
+			"fee": 9999,
+			"name": "Dietitian Counseling"
+		},
+		"883948":
+		{
+			"id": "883948",
+			"fee": 12099,
+			"name": "Aerobics Exercise"
+		},
+		"738575":
+		{
+			"id": "738575",
+			"fee": 33199,
+			"name": "Cardiovascular Health Screening"
+		},
+		"395876":
+		{
+			"id": "973677",
+			"fee": 2050,
+			"name": "BMI Assessment"
 		}
 	}
 }

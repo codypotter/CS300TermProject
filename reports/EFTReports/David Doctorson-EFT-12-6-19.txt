@@ -1,3 +1,0 @@
-Name: David Doctorson
-Id: 987654321
-Amount to be transferred: $29997

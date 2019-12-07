@@ -27,7 +27,7 @@ string verifyService(Database db);
 int main(int argc, char **argv)
 {
 	printHeader('c');
-	Database database((char *)"data/sample-db.json");
+	Database database((char *)"data/database.json");
 
 	cout << "Welcome to the ChocAn Simulator." << endl;
 	cout << "Would you like to simulate the (m)anager terminal or the (p)rovider terminal?" << endl;
