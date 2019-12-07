@@ -1,5 +1,7 @@
 build/
-.vscode/settings.json
-data/sample-db.json
+.vscode/
+vcpkg/
+cmake-build-debug/
+cmake-build-debug-mingw/
 
 
