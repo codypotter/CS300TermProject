@@ -1,7 +1,6 @@
 @echo off
 
-mkdir build
-pushd build
 cls
-cl /EHsc /WX -I..\include ..\main.cpp ..\*.cpp ..\libs\*.cpp ..\libs\*.lib msvcrt.lib shell32.lib user32.lib gdi32.lib
-popd
+cl /EHsc /WX -Iinclude main.cpp *.cpp libs\*.cpp msvcrt.lib shell32.lib user32.lib gdi32.lib
+del *.obj
+ren main.exe ChocAn.exe
