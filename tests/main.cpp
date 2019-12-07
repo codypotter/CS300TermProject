@@ -1,7 +1,7 @@
 //
 //
-//      COMPILE THIS FILE WITH THE COMMAND: cl -EHsc testing_the_test_library.cpp
-//      (or if you use Linux/Mac, g++ -std=c+11 -Wall testing_the_test_library.cpp)
+//      COMPILE THIS FILE WITH THE make COMMAND
+//      (or if you use Linux/Mac, cmake)
 //
 //
 
