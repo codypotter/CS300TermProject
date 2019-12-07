@@ -18,4 +18,11 @@ $ cmake ..
 $ make
 $ ./CS300TermProject
 ```
+## Sample IDs for Testing
+### Provider ID
+`987654321`
+### Member ID
+`000000000`
+### Service ID
+`12345`
 
