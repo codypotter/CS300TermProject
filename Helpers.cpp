@@ -14,19 +14,14 @@ void getMember(Database & database) {
     string newID;
 
     cout << "\nPlease enter the name of the member to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputName);
     cout << "\nPlease enter the street address of the member to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputStreet);
     cout << "\nPlease enter the name of the city in which the member is located: ";
-    cin.ignore(256, '\n');
     getline(cin, inputCity);
     cout << "\nPlease enter the state of the member to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputState);
     cout << "\nPlease enter the zip of the member to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputZip);
     newID = database.addMember(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
@@ -44,19 +39,14 @@ void getProvider(Database & database) {
     string newID;
 
     cout << "\nPlease enter the name of the provider to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputName);
     cout << "\nPlease enter the street address of the provider to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputStreet);
     cout << "\nPlease enter the name of the city in which the provider is located: ";
-    cin.ignore(256, '\n');
     getline(cin, inputCity);
     cout << "\nPlease enter the state of the provider to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputState);
     cout << "\nPlease enter the zip of the provider to add: ";
-    cin.ignore(256, '\n');
     getline(cin, inputZip);
     newID = database.addProvider(inputName, inputStreet, inputCity, inputState, inputZip);
     database.update();
@@ -72,7 +62,6 @@ void deleteMember(Database &database)
     char input;
 
     cout << "\nPlease input the ID of the member to delete: ";
-    cin.ignore(256, '\n');
     getline(cin, inputID);
     if (database.validateMemID(inputID) == false)
     {
@@ -82,8 +71,8 @@ void deleteMember(Database &database)
     Member memberToDelete = database.members.at(inputID);
     cout << "\nThat member ID matches the following member: " << memberToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
-    cin.ignore(256, '\n');
     cin >> input;
+    cin.ignore(256, '\n');
 
     if (toupper(input) == 'Y')
     {
@@ -100,11 +89,8 @@ void deleteMember(Database &database)
 //Same as deleteMember, but for providers
 void deleteProvider(Database & database) {
     string inputID;
-    cin.ignore(256, '\n');
     char input;
-
     cout << "\nPlease input the ID of the provider to delete: ";
-    cin.ignore(256, '\n');
     getline(cin, inputID);
     if (database.validateProvID(inputID) == false)
     {
@@ -114,8 +100,8 @@ void deleteProvider(Database & database) {
     Provider providerToDelete = database.providers.at(inputID);
     cout << "\nThat provider ID matches the following provider: " << providerToDelete.name;
     cout << "\nAre you sure you want to delete? y/n: ";
-    cin.ignore(256, '\n');
     cin >> input;
+    cin.ignore(256, '\n');
     if(toupper(input) == 'Y'){
         cout << "\nProvider has been removed";
         database.removeProvider(inputID);
@@ -132,8 +118,8 @@ void changeMember(Database & database) {
     string inputID;
     
     cout << "\nPlease input the ID of the member to edit: ";
-    cin.ignore(256, '\n');
     getline(cin, inputID);
+    cin.ignore(256, '\n');
     if (database.validateMemID(inputID) == false)
     {
         cout << "\nThat ID is invalid. No member will be edited.";
@@ -148,8 +134,8 @@ void changeProvider(Database & database) {
     string inputID;
     
     cout << "\nPlease input the ID of the provider to edit: ";
-    cin.ignore(256, '\n');
     getline(cin, inputID);
+    cin.ignore(256, '\n');
     if (database.validateProvID(inputID) == false)
     {
         cout << "\nThat ID is invalid. No provider will be edited.";
@@ -287,8 +273,8 @@ void printDirectory(Database db) {
 string validateMember(Database db) {
 	string memID = "";
 	cout << "Please enter member ID number: (9 digits)" << endl;
-	cin.ignore(256, '\n');
 	cin >> memID;
+    cin.ignore(256, '\n');
 	if(db.members.find(memID) == db.members.end())
 	{
 		cout << "Invalid member ID, please try again";
@@ -305,8 +291,8 @@ string validateMember(Database db) {
 string verifyService(Database db) {
 	string servCode = "";
 	cout << "Enter a service code: (6 digits)" << endl;
-	cin.ignore(256, '\n');
 	cin >> servCode;
+    cin.ignore(256, '\n');
 	if(db.directory.find(servCode) == db.directory.end())
 	{
 		cout << "Invalid service code" << endl;
