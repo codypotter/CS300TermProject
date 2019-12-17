@@ -1,4 +1,4 @@
-# The ChocAn Simulator
+# 🍫 The ChocAn Simulator
 ## Usage Instructions
 Run ChocAn.exe on windows or ./ChocAn on *nix to start the terminal simulator. 
 From there you can simulate the manager or provider terminals, following the on-screen prompts.
