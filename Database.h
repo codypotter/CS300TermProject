@@ -25,6 +25,7 @@ class Database {
 public:
     // Constructor
     explicit Database(char* rootPath);
+    Database();
 
     // JSON Database Operations
     void update();
@@ -37,18 +38,18 @@ public:
     void printDirectory();
 
     // CRUD Operations for Members
-    void displayMember(std::string memberID);
+    void displayMember(const std::string& memberID);
     std::string addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
-    bool removeMember(std::string memberID);
-    void editMember(std::string memberID);
-    bool validateMemID(std::string memberID);
+    bool removeMember(const std::string& memberID);
+    void editMember(const std::string& memberID);
+    bool validateMemID(const std::string& memberID);
 
     // CRUD Operations for Providers
-    void displayProvider(std::string providerID);
+    void printProvider(const std::string& providerID);
     std::string addProvider(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip);
-    bool removeProvider(std::string providerID);
+    bool removeProvider(const std::string& providerID);
     void editProvider(std::string providerID);
-    bool validateProvID(std::string providerID);
+    bool validateProviderID(std::string providerID);
 
     // CRUD Operations for Services
     std::string addService(std::string serviceDate, std::string submissionDate, std::string memberID, std::string providerID, std::string serviceCode, int fee);

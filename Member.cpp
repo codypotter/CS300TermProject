@@ -4,6 +4,8 @@
 
 #include "Member.h"
 
+#include <utility>
+
 //////////////////// Constructors ////////////////////
 /**
  * Constructor from JSON file
@@ -12,15 +14,15 @@
  */
 Member::Member(Json::Value& memberRef, std::string key) {
     name =      memberRef["name"].asString();
-    id =        key;
+    id =        std::move(key);
     isValid =   memberRef["isValid"].asBool();
     street =    memberRef["street"].asString();
     city =      memberRef["city"].asString();
     state =     memberRef["state"].asString();
     zip =       memberRef["zip"].asString();
 
-    for (int i = 0; i < memberRef["services"].size(); i++) {
-        services.push_back(memberRef["services"][i].asString());
+    for (const auto & i : memberRef["services"]) {
+        services.push_back(i.asString());
     }
 }
 
@@ -34,13 +36,13 @@ Member::Member(Json::Value& memberRef, std::string key) {
  * @param newZip - new member's zip
  */
 Member::Member(std::string newID, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
-    name =      newName;
-    id =        newID;
+    name =      std::move(newName);
+    id =        std::move(newID);
     isValid =   true; // consciously starting new members in a valid state
-    street =    newStreet;
-    city =      newCity;
-    state =     newState;
-    zip =       newZip;
+    street =    std::move(newStreet);
+    city =      std::move(newCity);
+    state =     std::move(newState);
+    zip =       std::move(newZip);
 }
 
 //////////////////// Getters ////////////////////
@@ -65,5 +67,3 @@ Json::Value Member::getJsonValue() {
 
     return jsonValue;
 }
-
-//////////////////// Setters ////////////////////

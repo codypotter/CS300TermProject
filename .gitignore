@@ -1,6 +1,6 @@
 build/
 .vscode/
-vcpkg/
+prev-vcpkg/
 cmake-build-debug/
 cmake-build-debug-mingw/
 

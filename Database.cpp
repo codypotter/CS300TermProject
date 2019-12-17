@@ -3,11 +3,15 @@
 //
 #include "Database.h"
 
+#include <utility>
+
 //////////////////// Constructor ////////////////////
 Database::Database(char* rootPath) {
     path = rootPath;
     reload();
 }
+
+Database::Database() = default;
 
 //////////////////// File i/o Operations ////////////////////
 /**
@@ -194,7 +198,7 @@ void Database::printServices() {
  */
 std::string Database::addMember(std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
     std::string newID = generateNewID(9);
-    Member newMember(newID, newName, newStreet, newCity, newState, newZip);
+    Member newMember(newID, std::move(newName), std::move(newStreet), std::move(newCity), std::move(newState), std::move(newZip));
 
     members.insert(std::pair<std::string, Member>((std::string) newID, newMember));
 
@@ -206,19 +210,18 @@ std::string Database::addMember(std::string newName, std::string newStreet, std:
  * @param memberID - id of the member to remove
  * @return true if successful
  */
-bool Database::removeMember(std::string memberID) {
+bool Database::removeMember(const std::string& memberID) {
     members.erase(memberID);
     return true;
 }
 
 //Displays the member passed by member ID
-void Database::displayMember(std::string memberID) {
+void Database::displayMember(const std::string& memberID) {
     Member member = members.at(memberID);
     std::cout <<"\nMember name: " << member.name << "\nMember Address: "; 
     std::cout << member.street << "\nMember City: " << member.city << "\nMember State: " << member.state << "\nMember ZIP: " << member.zip;
-    return;
 }
-void Database::editMember(std::string memberID) {
+void Database::editMember(const std::string& memberID) {
     char choice;
     std::string newValue;
     displayMember(memberID);
@@ -279,14 +282,18 @@ void Database::editMember(std::string memberID) {
             return;
     }
 }
-bool Database::validateMemID(std::string memberID) {
-    if(members.find(memberID) == members.end())
-	{
+
+/**
+ * Validates a member id
+ * @param memberID - the member id to validate
+ * @return - true if valid
+ */
+bool Database::validateMemID(const std::string& memberID) {
+    if(members.find(memberID) == members.end()) {
 		std::cout << "Invalid member ID, please try again";
 		return false;
 	}
-	else
-		return true;
+    return true;
 }
 
 //////////////////// CRUD Operations for Providers ////////////////////
@@ -312,22 +319,30 @@ std::string Database::addProvider(std::string newName, std::string newStreet, st
  * @param providerID - id of the provider to erase
  * @return true if successful
  */
-bool Database::removeProvider(std::string providerID) {
+bool Database::removeProvider(const std::string& providerID) {
     providers.erase(providerID);
     return true;
 }
-//Displays the provider passed by providerID
-void Database::displayProvider(std::string providerID){
+
+/**
+ * Prints the provider data
+ * @param providerID - the id of the provider to print
+ */
+void Database::printProvider(const std::string& providerID){
     Provider provider = providers.at(providerID);
     std::cout <<"\nProvider name: " << provider.name << "\nProvider Address: "; 
     std::cout << provider.street << "\nProvider City: " << provider.city << "\nProvider State: " << provider.state << "\nProvider ZIP: " << provider.zip;
-    return;
 }
+
+/**
+ * Edits a provider
+ * @param providerID - the id of the provider to edit
+ */
 void Database::editProvider(std::string providerID)
 {
     char choice;
     std::string newValue;
-    displayProvider(providerID);
+    printProvider(providerID);
 
     std::cout << "\nWhat field would you like to edit for this provider?\n";
     std::cout << "\n\t(a) Name";
@@ -340,59 +355,76 @@ void Database::editProvider(std::string providerID)
     std::cin >> choice;
     std::cin.ignore(256, '\n');
 
-    switch (tolower(choice))
-    {
-    case ('a'):
-        std::cout << "\nPlease enter a new name: ";
-        getline(std::cin, newValue);
-        providers.at(providerID).name = newValue;
-        update();
-        std::cout << "\nProvider " << providerID << " now has the name " << newValue << ".\n";
-        break;
-    case ('b'):
-        std::cout << "\nPlease enter a new street address: ";
-        getline(std::cin, newValue);
-        providers.at(providerID).street = newValue;
-        update();
-        std::cout << "\nProvider " << providerID << " now has the street address " << newValue << ".\n";
-        break;
-    case ('c'):
-        std::cout << "\nPlease enter a new city: ";
-        getline(std::cin, newValue);
-        providers.at(providerID).city = newValue;
-        update();
-        std::cout << "\nProvider " << providerID << " now has the city " << newValue << ".\n";
-        break;
-    case ('d'):
-        std::cout << "\nPlease enter a new state: ";
-        getline(std::cin, newValue);
-        providers.at(providerID).state = newValue;
-        update();
-        std::cout << "\nProvider " << providerID << " now has the state " << newValue << ".\n";
-        break;
-    case ('e'):
-        std::cout << "\nPlease enter a new zip code: ";
-        getline(std::cin, newValue);
-        providers.at(providerID).zip = newValue;
-        update();
-        std::cout << "\nProvider " << providerID << " now has the zip code " << newValue << ".\n";
-        break;
-    case ('f'):
-        std::cout << "\nNo provider was edited.";
-        return;
-    default:
-        std::cout << "\nUnknown input. No provider was edited.";
-        return;
+    switch (tolower(choice)) {
+        case ('a'): {
+            std::cout << "\nPlease enter a new name: ";
+            getline(std::cin, newValue);
+            providers.at(providerID).name = newValue;
+            update();
+            std::cout << "\nProvider " << providerID << " now has the name " << newValue << ".\n";
+            break;
+        }
+
+        case ('b'): {
+            std::cout << "\nPlease enter a new street address: ";
+            getline(std::cin, newValue);
+            providers.at(providerID).street = newValue;
+            update();
+            std::cout << "\nProvider " << providerID << " now has the street address " << newValue << ".\n";
+            break;
+        }
+
+        case ('c'): {
+            std::cout << "\nPlease enter a new city: ";
+            getline(std::cin, newValue);
+            providers.at(providerID).city = newValue;
+            update();
+            std::cout << "\nProvider " << providerID << " now has the city " << newValue << ".\n";
+            break;
+        }
+
+        case ('d'): {
+            std::cout << "\nPlease enter a new state: ";
+            getline(std::cin, newValue);
+            providers.at(providerID).state = newValue;
+            update();
+            std::cout << "\nProvider " << providerID << " now has the state " << newValue << ".\n";
+            break;
+        }
+
+        case ('e'): {
+            std::cout << "\nPlease enter a new zip code: ";
+            getline(std::cin, newValue);
+            providers.at(providerID).zip = newValue;
+            update();
+            std::cout << "\nProvider " << providerID << " now has the zip code " << newValue << ".\n";
+            break;
+        }
+
+        case ('f'): {
+            std::cout << "\nNo provider was edited.";
+            return;
+        }
+
+        default: {
+            std::cout << "\nUnknown input. No provider was edited.";
+            return;
+
+        }
     }
 }
-bool Database::validateProvID(std::string providerID) {
-    if(providers.find(providerID) == providers.end())
-	{
+
+/**
+ * Validates that a provider id is in the database
+ * @param providerID
+ * @return
+ */
+bool Database::validateProviderID(std::string providerID) {
+    if (providers.find(providerID) == providers.end()) {
 		std::cout << "Invalid provider ID, please try again";
 		return false;
 	}
-	else
-		return true;
+    return true;
 }
 //////////////////// CRUD Operations for Services ////////////////////
 /**
@@ -423,6 +455,7 @@ bool Database::removeService(std::string serviceID) {
     return true;
 }
 
+////////// Getters //////////
 Member &Database::getMember(std::string memberID) {
     return members.at(memberID);
 }
@@ -438,4 +471,6 @@ Service &Database::getService(std::string serviceID) {
 ServiceEntry &Database::getServiceEntry(std::string serviceEntryID) {
     return directory.at(serviceEntryID);
 }
+
+
 

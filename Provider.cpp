@@ -4,6 +4,8 @@
 
 #include "Provider.h"
 
+#include <utility>
+
 //////////////////// Constructors ////////////////////
 /**
  * Constructor for Json Value
@@ -12,14 +14,14 @@
  */
 Provider::Provider(Json::Value& providerRef, std::string key) {
     name =      providerRef["name"].asString();
-    id =        key;
+    id =        std::move(key);
     street =    providerRef["street"].asString();
     city =      providerRef["city"].asString();
     state =     providerRef["state"].asString();
     zip =       providerRef["zip"].asString();
 
-    for (int i = 0; i < providerRef["services"].size(); i++) {
-        services.push_back(providerRef["services"][i].asString());
+    for (const auto & i : providerRef["services"]) {
+        services.push_back(i.asString());
     }
 
 }
@@ -34,12 +36,12 @@ Provider::Provider(Json::Value& providerRef, std::string key) {
  * @param newZip - new provider's zip
  */
 Provider::Provider(std::string newID, std::string newName, std::string newStreet, std::string newCity, std::string newState, std::string newZip) {
-    name =      newName;
-    id =        newID;
-    street =    newStreet;
-    city =      newCity;
-    state =     newState;
-    zip =       newZip;
+    name =      std::move(newName);
+    id =        std::move(newID);
+    street =    std::move(newStreet);
+    city =      std::move(newCity);
+    state =     std::move(newState);
+    zip =       std::move(newZip);
 }
 
 //////////////////// Getters ////////////////////
